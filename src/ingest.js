@@ -53,7 +53,7 @@ function ingestRouter(store) {
 
     const accepted = [], errors = [];
     for (const raw of readings) {
-      const merged = Object.assign({ loco_id: ctx.loco_id, shed_id: ctx.shed_id, position: body.position, sensor_type: 'wireless', ts: body.ts || body.timestamp }, raw);
+      const merged = Object.assign({ loco_id: ctx.loco_id, shed_id: ctx.shed_id, sensor_type: 'wireless', ts: body.ts || body.timestamp }, raw);
       const err = validateReading(merged, ctx);
       if (err) { errors.push(err); continue; }
       accepted.push(store.ingestReading(merged).sensor_id);

@@ -28,7 +28,7 @@ function startDemo(store) {
       const type = types[(e + n) % types.length];
       const loco_id = `${type}-${locoSeq++}`;
       store.upsertLoco({ loco_id, name: loco_id, architecture: 'wired_modbus', data_source: 'rest_push' });
-      store.assignLoco({ loco_id, shed_id, position: n, user: 'demo-seed', reason: 'initial' });
+      store.assignLoco({ loco_id, shed_id, user: 'demo-seed', reason: 'initial' });
       // 6 traction motors x DE/NDE = 12 fixed points per loco, same layout as the real RUT200 push.
       for (let tm = 1; tm <= 6; tm++) {
         for (const end of ['DE', 'NDE']) {

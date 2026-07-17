@@ -14,11 +14,11 @@
 <style>
   /* ---- Light theme (default) ---- */
   :root{
-    --bg:#eef1f7; --panel:#ffffff; --panel-2:#f3f6fb; --line:#dce3ee;
-    --text:#1b2330; --muted:#5c6779; --faint:#8a96aa;
-    --brand:#0ea5e9; --brand-dim:#bae6fd;
-    --ok:#16a34a; --warn:#d97706; --high:#ea580c; --crit:#dc2626; --off:#94a3b8;
-    --ok-bg:#e7f6ec; --warn-bg:#fbf0dd; --high-bg:#fbeadf; --crit-bg:#fbe9ea; --off-bg:#eef1f6;
+    --bg:#fffaf5; --panel:#ffffff; --panel-2:#fff3e8; --line:#f1d9bf;
+    --text:#2a1c10; --muted:#8a6a4d; --faint:#b5977a;
+    --brand:#f97316; --brand-dim:#ffe3c2;
+    --ok:#16a34a; --warn:#d97706; --high:#ea580c; --crit:#dc2626; --off:#a89685;
+    --ok-bg:#e7f6ec; --warn-bg:#fdecd2; --high-bg:#fde3d2; --crit-bg:#fbe4e4; --off-bg:#f6efe7;
     --shadow:0 1px 3px rgba(20,30,50,.08),0 6px 20px rgba(20,30,50,.06);
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
     --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -43,7 +43,7 @@
   .login-card{width:360px;max-width:92vw;background:var(--panel);border:1px solid var(--line);
     border-radius:14px;padding:28px;box-shadow:var(--shadow)}
   .brand-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-  .logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#0369a1);
+  .logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#c2410c);
     display:grid;place-items:center;font-weight:700;color:#fff;font-size:15px}
   .login-card h1{font-size:16px;margin:0;letter-spacing:.3px}
   .login-card .sub{color:var(--muted);font-size:12px;margin:2px 0 20px}
@@ -222,22 +222,22 @@
     </section>
 
     <section class="view" id="view-live">
-      <div class="view-head"><h2>Live SHED Monitoring</h2><span class="desc">Over-threshold locos float to the top · click a TM for its trend</span></div>
+      <div class="view-head"><h2>Live Loco Monitoring</h2><span class="desc">Over-threshold locos float to the top · click a TM for its trend</span></div>
       <div class="row"><div class="f"><label>Show motor loco</label>
         <select id="liveLocoPick"><option value="">All assigned locos</option></select></div>
         <div class="f"><label>&nbsp;</label><span class="desc" id="liveCount"></span></div></div>
       <div class="legend">
         <span><i class="swatch" style="background:var(--ok)"></i>Normal</span>
-        <span><i class="swatch" style="background:var(--warn)"></i>Warning &gt;70</span>
-        <span><i class="swatch" style="background:var(--high)"></i>High &gt;80</span>
-        <span><i class="swatch" style="background:var(--crit)"></i>Critical &gt;90</span>
+        <span><i class="swatch" style="background:var(--warn)"></i>Warning &gt;120</span>
+        <span><i class="swatch" style="background:var(--high)"></i>High &gt;140</span>
+        <span><i class="swatch" style="background:var(--crit)"></i>Critical &gt;160</span>
         <span><i class="swatch" style="background:var(--off)"></i>Offline</span>
       </div>
       <div id="sheds" style="margin-top:14px"></div>
     </section>
 
     <section class="view" id="view-twin">
-      <div class="view-head"><h2>SHED Digital Twin</h2><span class="desc">Visual consist layout · 4 locos × 4 traction motors</span></div>
+      <div class="view-head"><h2>Loco Digital Twin</h2><span class="desc">Visual fleet layout · 6 traction motors (DE/NDE) per loco</span></div>
       <div class="row"><div class="f"><label>Shed</label><select id="twinPick"></select></div></div>
       <div class="panel" style="padding:6px 14px"><div class="train" id="train"></div></div>
     </section>
@@ -280,7 +280,7 @@
     <section class="view" id="view-map">
       <div class="view-head"><h2>Depot Map</h2><span class="desc">Depots &amp; their locos · green = healthy, red = alert/offline</span></div>
       <div class="kpis" id="mapKpis" style="margin-bottom:14px"></div>
-      <div id="mapWrap" style="height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--border)"><div id="map" style="height:100%"></div></div>
+      <div id="mapWrap" style="height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--line)"><div id="map" style="height:100%"></div></div>
       <div id="mapNote" class="desc" style="margin-top:10px"></div>
       <div id="noGeo" style="margin-top:8px"></div>
     </section>
@@ -310,7 +310,7 @@
         <tbody id="locoRows"></tbody></table><div class="empty" id="locoEmpty" style="display:none">No locos yet.</div></div>
       <div class="view-head"><h2 style="font-size:15px">Transfer History</h2><span class="desc" id="histLabel">Select a loco to view its audit trail</span></div>
       <div class="panel"><table>
-        <thead><tr><th>Loco</th><th>From</th><th>To</th><th>Pos</th><th>By</th><th>Reason</th><th>At</th></tr></thead>
+        <thead><tr><th>Loco</th><th>From</th><th>To</th><th>By</th><th>Reason</th><th>At</th></tr></thead>
         <tbody id="histRows"></tbody></table><div class="empty" id="histEmpty">No history loaded.</div></div>
     </section>
 
@@ -342,7 +342,7 @@
 
       <div class="view-head"><h2 style="font-size:14px">Locomotives</h2><button class="mini" id="addLocoBtn" style="margin-left:auto">+ Add loco</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Loco</th><th>Shed</th><th>Pos</th><th>Arch</th><th>RUT200 IP</th><th>Port</th><th>Path</th><th>Poll</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Loco</th><th>Shed</th><th>Arch</th><th>RUT200 IP</th><th>Port</th><th>Path</th><th>Poll</th><th>Actions</th></tr></thead>
         <tbody id="adminLocos"></tbody></table></div>
 
       <div class="view-head"><h2 style="font-size:14px">Sensor Registry</h2><span class="desc">Serial no · calibration · firmware · warranty</span></div>
@@ -357,12 +357,12 @@
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Field Devices (RUT self-update)</h2><button class="mini" id="addDeviceBtn" style="margin-left:auto">+ Register device</button></div>
       <div class="panel" style="margin-bottom:18px"><div class="desc" style="padding:8px 4px">Each RUT pulls its config from here every few minutes. Change loco/tags here and the device updates itself — no site visit needed.</div><table>
-        <thead><tr><th>Device ID</th><th>Loco</th><th>Shed</th><th>Tags (TM1-4)</th><th>Interval</th><th>Enabled</th><th>Last Seen</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Device ID</th><th>Loco</th><th>Shed</th><th>Tags (TM1-6)</th><th>Interval</th><th>Enabled</th><th>Last Seen</th><th>Actions</th></tr></thead>
         <tbody id="adminDevices"></tbody></table><div class="empty" id="deviceEmpty" style="display:none">No field devices registered.</div></div>
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Bulk Loco Import</h2></div>
       <div class="panel" style="padding:16px;margin-bottom:18px">
-        <div class="desc" style="margin-bottom:8px">One loco per line: <code>loco_id, shed_id, position</code> (shed_id &amp; position optional). Example: <code>MC-05, SHED-01, 5</code></div>
+        <div class="desc" style="margin-bottom:8px">One loco per line: <code>loco_id, shed_id</code> (shed_id optional). Example: <code>WAP7-30212, SHED-01</code></div>
         <textarea id="bulkText" class="inp" rows="4" style="width:100%;font-family:var(--mono);font-size:12px" placeholder="MC-05, SHED-01, 5&#10;MC-06, SHED-01, 6"></textarea>
         <div style="margin-top:10px"><button class="btn ghost" id="bulkBtn">Import locos</button><span id="bulkNote" class="desc" style="margin-left:10px"></span></div>
       </div>
@@ -465,13 +465,13 @@
     </section>
 
     <section class="view" id="view-health">
-      <div class="view-head"><h2>Health Index</h2><span class="desc">0–100 condition score · sensor → loco → SHED → fleet</span></div>
+      <div class="view-head"><h2>Health Index</h2><span class="desc">0–100 condition score · sensor → loco → shed → fleet</span></div>
       <div class="kpis" id="healthTop" style="margin-bottom:18px"></div>
       <div class="view-head"><h2 style="font-size:14px">Loco Health (worst first)</h2></div>
       <div class="panel" style="margin-bottom:18px"><table>
         <thead><tr><th>Loco</th><th>Shed</th><th>Sensors</th><th>Avg Temp</th><th>Worst</th><th>Health Score</th></tr></thead>
         <tbody id="locoHealthRows"></tbody></table></div>
-      <div class="view-head"><h2 style="font-size:14px">SHED Health</h2></div>
+      <div class="view-head"><h2 style="font-size:14px">Shed Health</h2></div>
       <div class="panel"><table>
         <thead><tr><th>Shed</th><th>Locos</th><th>Sensors</th><th>Avg Temp</th><th>Health Score</th></tr></thead>
         <tbody id="shedHealthRows"></tbody></table></div>
@@ -514,7 +514,7 @@
     </section>
   </main>
 
-  <footer id="appFooter" style="border-top:1px solid var(--border);margin-top:24px;padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--panel)">
+  <footer id="appFooter" style="border-top:1px solid var(--line);margin-top:24px;padding:16px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--panel)">
     <img src="/assets/himnish-logo.png" alt="Himnish" style="height:40px;width:auto"/>
     <div style="flex:1;min-width:220px">
       <div style="font-weight:700;font-size:15px">HIMNISH LIMITED</div>
@@ -544,7 +544,7 @@
   'use strict';
   var TOKEN=null,USER=null,POLL=null,CURRENT='overview',SELECTED_LOCO=null,CMP=[];
   var ROLE_LABELS={super_admin:'Super Admin',railway_hq:'Railway HQ',depot_admin:'Depot Admin',maintenance_eng:'Maintenance Engineer',observer:'Observer'};
-  var PALETTE=['#0ea5e9','#16a34a','#d97706','#dc2626','#7c3aed','#0891b2'];
+  var PALETTE=['#f97316','#16a34a','#0ea5e9','#dc2626','#7c3aed','#c2410c'];
 
   function $(s){return document.querySelector(s);}
   function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;}
@@ -603,7 +603,7 @@
     'Devices':'डिवाइस','Topology':'टोपोलॉजी','Alerts':'अलर्ट','Analytics':'एनालिटिक्स','Predict':'पूर्वानुमान',
     'Loco Transfer':'कोच स्वैप','Maintenance':'रखरखाव','Admin':'एडमिन','Notify':'सूचना','Reports':'रिपोर्ट',
     'Health':'हेल्थ','Assistant':'सहायक','Audit':'ऑडिट','Sign out':'साइन आउट',
-    'Enterprise Overview':'फ्लीट ओवरव्यू','Live SHED Status':'लाइव SHED स्थिति',
+    'Enterprise Overview':'फ्लीट ओवरव्यू','Live Loco Status':'लाइव लोको स्थिति',
     'Temperature Heatmap':'तापमान हीटमैप','Depot Map':'डिपो नक्शा','Network Topology':'नेटवर्क टोपोलॉजी',
     'Alert Management Center':'अलर्ट प्रबंधन केंद्र','Historical Analytics':'ऐतिहासिक एनालिटिक्स',
     'Predictive Early-Warning':'पूर्वानुमान चेतावनी','Loco Transfer':'कोच स्वैप','Health Index':'हेल्थ इंडेक्स',
@@ -743,7 +743,7 @@
       e.locos.forEach(function(c){
         var cr=locoRank(c);if(cr>=2)alarmC++;
         var cc=el('div','loco');if(cr>=2){cc.style.borderColor='var(--'+(cr>=4?'crit':cr>=3?'high':'warn')+')';cc.style.boxShadow='0 0 0 1px var(--'+(cr>=4?'crit':cr>=3?'high':'warn')+')';}
-        var ch=el('div','loco-head');ch.appendChild(el('span','cid',c.loco_id));ch.appendChild(el('span','pos','Pos '+(c.position||'?')));
+        var ch=el('div','loco-head');ch.appendChild(el('span','cid',c.loco_id));
         var allOff=c.tms.every(function(t){return t.status==='offline';});
         if(allOff){
           var last=c.tms.map(function(t){return t.last_update;}).filter(Boolean).sort().pop();
@@ -774,9 +774,9 @@
   }
   function drawTwin(sheds){
     var id=$('#twinPick').value;var e=sheds.find(function(x){return x.shed_id===id;});var t=$('#train');t.innerHTML='';
-    if(!e){t.appendChild(el('div','empty','No SHED selected'));return;}
+    if(!e){t.appendChild(el('div','empty','No shed selected'));return;}
     e.locos.forEach(function(c){
-      var car=el('div','car');var ch=el('div','ch');ch.appendChild(el('span','cid',c.loco_id));ch.appendChild(el('span','pos','Pos '+(c.position||'?')));car.appendChild(ch);
+      var car=el('div','car');var ch=el('div','ch');ch.appendChild(el('span','cid',c.loco_id));car.appendChild(ch);
       var bg=el('div','bogies');var sig=0,bat=0,n=0;
       c.tms.forEach(function(tm){
         var cell=el('div','bg '+tm.classification);
@@ -1100,7 +1100,7 @@
     var tb=$('#locoRows');tb.innerHTML='';$('#locoEmpty').style.display=locos.length?'none':'block';
     var canSwap=['super_admin','depot_admin','maintenance_eng'].indexOf(USER.role)>=0;
     locos.forEach(function(c){
-      var tr=el('tr');tr.appendChild(el('td',null,c.loco_id));tr.appendChild(el('td',null,c.shed_id||'—'));tr.appendChild(el('td',null,c.position||'—'));tr.appendChild(el('td',null,c.since?new Date(c.since).toLocaleString('en-GB'):'—'));
+      var tr=el('tr');tr.appendChild(el('td',null,c.loco_id));tr.appendChild(el('td',null,c.shed_id||'—'));tr.appendChild(el('td',null,c.since?new Date(c.since).toLocaleString('en-GB'):'—'));
       var act=el('td');
       if(canSwap){var btn=el('button','mini','Reassign');btn.addEventListener('click',function(){swapDialog(c,shedIds);});act.appendChild(btn);}
       var hist=el('button','mini','History');hist.style.marginLeft='6px';hist.addEventListener('click',function(){loadHistory(c.loco_id);});act.appendChild(hist);
@@ -1110,13 +1110,13 @@
   }
   async function swapDialog(c,shedIds){
     var target=prompt('Reassign '+c.loco_id+' to SHED (existing or new id):',shedIds.find(function(x){return x!==c.shed_id;})||'SHED-02');if(!target)return;
-    var pos=prompt('Position in '+target+' (1-4):',c.position||'1');var reason=prompt('Reason for transfer:','Scheduled maintenance');
-    try{await api('/locos/'+encodeURIComponent(c.loco_id)+'/assign',{method:'POST',body:JSON.stringify({shed_id:target,position:pos,reason:reason})});renderSwap();}catch(err){alert(err.message);}
+    var reason=prompt('Reason for transfer:','Shed reassignment');
+    try{await api('/locos/'+encodeURIComponent(c.loco_id)+'/assign',{method:'POST',body:JSON.stringify({shed_id:target,reason:reason})});renderSwap();}catch(err){alert(err.message);}
   }
   async function loadHistory(locoId){
     SELECTED_LOCO=locoId;var h=await api('/locos/'+encodeURIComponent(locoId)+'/history');
     $('#histLabel').textContent='Audit trail for '+locoId;var tb=$('#histRows');tb.innerHTML='';$('#histEmpty').style.display=h.length?'none':'block';
-    h.forEach(function(s){var tr=el('tr');[s.loco_id,s.from_shed||'—',s.to_shed,s.position||'—',s.user,s.reason||'—',new Date(s.at).toLocaleString('en-GB')].forEach(function(v){tr.appendChild(el('td',null,v));});tb.appendChild(tr);});
+    h.forEach(function(s){var tr=el('tr');[s.loco_id,s.from_shed||'—',s.to_shed,s.user,s.reason||'—',new Date(s.at).toLocaleString('en-GB')].forEach(function(v){tr.appendChild(el('td',null,v));});tb.appendChild(tr);});
   }
 
   var _adminBound=false;
@@ -1176,7 +1176,7 @@
     // locos
     var tc=$('#adminLocos');tc.innerHTML='';
     assets.locos.forEach(function(c){
-      var tr=el('tr');[c.loco_id,c.shed_id||'—',c.position||'—',(c.architecture||'wireless'),c.rut200_ip||'—',c.rut200_port||'—',c.rut200_path||'—',c.poll_enabled?'on':'off'].forEach(function(v){tr.appendChild(el('td',null,v));});
+      var tr=el('tr');[c.loco_id,c.shed_id||'—',(c.architecture||'wired_modbus'),c.rut200_ip||'—',c.rut200_port||'—',c.rut200_path||'—',c.poll_enabled?'on':'off'].forEach(function(v){tr.appendChild(el('td',null,v));});
       var ac=el('td');
       if(!ro){ac.appendChild(mkBtn('Edit',function(){editLoco(c);}));ac.appendChild(mkBtn('Delete',function(){delLoco(c);}));}else ac.textContent='—';
       tr.appendChild(ac);tc.appendChild(tr);
@@ -1253,7 +1253,7 @@
   }
   async function doBulkImport(){
     var lines=$('#bulkText').value.split('\n').map(function(l){return l.trim();}).filter(Boolean);
-    var locos=lines.map(function(l){var p=l.split(',').map(function(x){return x.trim();});return {loco_id:p[0],shed_id:p[1]||null,position:p[2]||null};});
+    var locos=lines.map(function(l){var p=l.split(',').map(function(x){return x.trim();});return {loco_id:p[0],shed_id:p[1]||null};});
     if(!locos.length){alert('Enter at least one loco');return;}
     try{var r=await api('/locos/bulk',{method:'POST',body:JSON.stringify({locos:locos})});
       $('#bulkNote').textContent=r.created+' created'+(r.errors.length?(', '+r.errors.length+' failed'):'');
@@ -1314,17 +1314,17 @@
   function editShed(e){var name=prompt('Name for '+e.shed_id+':',e.name||'');if(name===null)return;var depot=prompt('Depot id:',e.depot_id||'');adminCall('/sheds/'+encodeURIComponent(e.shed_id),'PUT',{name:name,depot_id:depot});}
   function delShed(e){if(confirm('Delete '+e.shed_id+'? Its locos will be unassigned.'))adminCall('/sheds/'+encodeURIComponent(e.shed_id),'DELETE');}
   function addLoco(){
-    var id=prompt('New loco id (e.g. MC-110):');if(!id)return;
-    var shed=prompt('Assign to SHED id (optional):','');var pos=prompt('Position 1-4 (optional):','');
-    var arch=prompt('Sensor architecture: wired / wireless / hybrid','wireless');
+    var id=prompt('New loco id (must match RUT200 script coachId, e.g. WAP7-30212):');if(!id)return;
+    var shed=prompt('Assign to shed id (optional):','');
+    var arch=prompt('Sensor architecture: wired_modbus / wireless / hybrid','wired_modbus');
     var ip=prompt('RUT200 IP address (optional):','');
-    var port=prompt('RUT200 port:','80');var path=prompt('RUT200 data path:','/readings');
+    var port=prompt('RUT200 Modbus TCP port (for optional pull-polling; the push script needs no config here):','502');var path=prompt('RUT200 data path (unused by the push script):','/readings');
     var poll=confirm('Enable polling this RUT200 by IP? OK = yes, Cancel = no');
-    adminCall('/loco','POST',{loco_id:id,shed_id:shed||undefined,position:pos||undefined,architecture:arch||'wireless',rut200_ip:ip||null,rut200_port:port,rut200_path:path,poll_enabled:poll});
+    adminCall('/loco','POST',{loco_id:id,shed_id:shed||undefined,architecture:arch||'wired_modbus',rut200_ip:ip||null,rut200_port:port,rut200_path:path,poll_enabled:poll});
   }
   function editLoco(c){
     var name=prompt('Name for '+c.loco_id+':',c.name||'');if(name===null)return;
-    var arch=prompt('Sensor architecture: wired / wireless / hybrid',c.architecture||'wireless');
+    var arch=prompt('Sensor architecture: wired_modbus / wireless / hybrid',c.architecture||'wired_modbus');
     var conc=prompt('Data Concentrator ID:',c.concentrator_id||('DC-'+c.loco_id));
     var imei=prompt('LTE module IMEI:',c.lte_imei||'');var sim=prompt('LTE SIM number:',c.lte_sim||'');
     var lip=prompt('LTE IP address:',c.lte_ip||'');
@@ -1431,7 +1431,7 @@
     catch(e){$('#rpNote').textContent='Error: '+e.message;}
   }
 
-  var REPORT_TYPES=[['readings','Live Readings'],['alarms','Alarm Report'],['sensor-health','Sensor Health'],['loco-health','Loco Health'],['shed-health','SHED Health']];
+  var REPORT_TYPES=[['readings','Live Readings'],['alarms','Alarm Report'],['sensor-health','Sensor Health'],['loco-health','Loco Health'],['shed-health','Shed Health']];
   function scoreClass(v){return v>=80?'ok':v>=55?'warn':'crit';}
   async function renderReports(){
     $('#reportNote').textContent='Exports use your live session and cover only your assigned locos.';

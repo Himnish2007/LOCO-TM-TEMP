@@ -56,7 +56,7 @@ class Store {
     this.users = new Map();        // username -> { username, hash, role, depot_id }
     this.sheds = new Map();         // shed_id   -> { shed_id, name, depot_id }
     this.locos = new Map();      // loco_id -> { loco_id, name, rut200_ip, rut200_port, rut200_path, poll_enabled }
-    this.assignment = new Map();   // loco_id -> { shed_id, position, since }
+    this.assignment = new Map();   // loco_id -> { shed_id, since }
     this.transfers = [];               // loco transfer audit trail
     this.userAssets = new Map();   // username -> { sheds:[], locos:[] }
     this.maintenance = [];         // work orders / service history (persisted)
@@ -546,7 +546,7 @@ class Store {
       rut200_ip: body.rut200_ip || null, rut200_port: body.rut200_port || 80,
       rut200_path: body.rut200_path || '/readings', poll_enabled: !!body.poll_enabled,
     });
-    if (body.shed_id) this.assignLoco({ loco_id: body.loco_id, shed_id: body.shed_id, position: body.position, user: actor, reason: 'created' });
+    if (body.shed_id) this.assignLoco({ loco_id: body.loco_id, shed_id: body.shed_id, user: actor, reason: 'created' });
     this.logAudit({ user: actor, action: 'create_loco', detail: body.loco_id });
     this._persist();
     return this.locos.get(body.loco_id);
@@ -656,15 +656,15 @@ class Store {
     return { concentrators, lte };
   }
 
-  // ===== Dynamic loco <-> SHED assignment =================================
-  assignLoco({ loco_id, shed_id, position, user, reason }) {
+  // ===== Dynamic loco <-> shed assignment ==================================
+  assignLoco({ loco_id, shed_id, user, reason }) {
     const prev = this.assignment.get(loco_id);
     const now = new Date().toISOString();
-    this.assignment.set(loco_id, { shed_id, position: Number(position) || null, since: now });
+    this.assignment.set(loco_id, { shed_id, since: now });
     this.transfers.unshift({ loco_id, from_shed: prev ? prev.shed_id : null, to_shed: shed_id,
-      position: Number(position) || null, user: user || 'system', reason: reason || '', at: now });
+      user: user || 'system', reason: reason || '', at: now });
     this.logAudit({ user: user || 'system', action: 'loco_assign',
-      detail: `${loco_id}: ${prev ? prev.shed_id : '(none)'} -> ${shed_id} pos ${position}` });
+      detail: `${loco_id}: ${prev ? prev.shed_id : '(none)'} -> ${shed_id}` });
     this._persist();
     return this.assignment.get(loco_id);
   }
@@ -685,7 +685,7 @@ class Store {
     if (r.loco_id && !this.locos.has(r.loco_id)) this.upsertLoco({ loco_id: r.loco_id, name: r.loco_id });
     if (resolvedShed && !this.sheds.has(resolvedShed)) this.upsertShed({ shed_id: resolvedShed, name: resolvedShed });
     if (r.loco_id && resolvedShed && !this.assignment.has(r.loco_id)) {
-      this.assignLoco({ loco_id: r.loco_id, shed_id: resolvedShed, position: r.position || null,
+      this.assignLoco({ loco_id: r.loco_id, shed_id: resolvedShed,
         user: 'auto-provision', reason: 'first contact' });
     }
 

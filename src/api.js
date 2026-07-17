@@ -69,7 +69,7 @@ function apiRouter(store, notifier) {
       const shed = ensureShed(s.shed_id);
       if (!shed.locos.has(s.loco_id)) {
         const a = store.assignment.get(s.loco_id) || {};
-        shed.locos.set(s.loco_id, { loco_id: s.loco_id, position: a.position || null, since: a.since || null, tms: [] });
+        shed.locos.set(s.loco_id, { loco_id: s.loco_id, since: a.since || null, tms: [] });
       }
       shed.locos.get(s.loco_id).tms.push({
         sensor_id: s.sensor_id, tm_id: s.tm_id, temperature: s.temperature, status: s.status,
@@ -79,19 +79,21 @@ function apiRouter(store, notifier) {
     }
     // 2) Configured locos that are NOT reporting — shown as OFFLINE so an
     //    operator can see which locos have a problem (not just the healthy ones).
+    const TM_LABELS = ['TM1-DE', 'TM1-NDE', 'TM2-DE', 'TM2-NDE', 'TM3-DE', 'TM3-NDE',
+      'TM4-DE', 'TM4-NDE', 'TM5-DE', 'TM5-NDE', 'TM6-DE', 'TM6-NDE'];
     for (const [loco_id, asg] of store.assignment) {
       if (!asg || !asg.shed_id) continue;
       if (!store.canSeeLoco(req.user, loco_id)) continue;
       const shed = ensureShed(asg.shed_id);
       if (shed.locos.has(loco_id)) continue;
-      const tms = [1, 2, 3, 4].map((n) => ({
-        sensor_id: `${loco_id}-TM${n}`, tm_id: `TM${n}`, temperature: null, status: 'offline',
+      const tms = TM_LABELS.map((label) => ({
+        sensor_id: `${loco_id}_${label}`, tm_id: label, temperature: null, status: 'offline',
         classification: 'offline', battery_health: null, signal_strength: null, last_update: null,
       }));
-      shed.locos.set(loco_id, { loco_id, position: asg.position || null, since: asg.since || null, tms });
+      shed.locos.set(loco_id, { loco_id, since: asg.since || null, tms });
     }
     res.json([...sheds.values()].map((e) => ({ ...e,
-      locos: [...e.locos.values()].sort((a, b) => (a.position || 99) - (b.position || 99))
+      locos: [...e.locos.values()].sort((a, b) => a.loco_id.localeCompare(b.loco_id))
         .map((c) => ({ ...c, tms: c.tms.sort((x, y) => String(x.tm_id).localeCompare(String(y.tm_id))) })),
     })).sort((a, b) => a.shed_id.localeCompare(b.shed_id)));
   });
@@ -143,14 +145,14 @@ function apiRouter(store, notifier) {
     const out = [...store.locos.values()]
       .filter((c) => scope.all || scope.locos.has(c.loco_id))
       .map((c) => { const a = store.assignment.get(c.loco_id) || {};
-        return { loco_id: c.loco_id, name: c.name, shed_id: a.shed_id || null, position: a.position || null, since: a.since || null }; });
+        return { loco_id: c.loco_id, name: c.name, shed_id: a.shed_id || null, since: a.since || null }; });
     res.json(out);
   });
   router.post('/locos/:locoId/assign', requireRole('super_admin', 'depot_admin', 'maintenance_eng'), (req, res) => {
-    const { shed_id, position, reason } = req.body || {};
+    const { shed_id, reason } = req.body || {};
     if (!shed_id) return res.status(400).json({ error: 'shed_id required' });
     if (!store.canSeeLoco(req.user, req.params.locoId)) return res.status(403).json({ error: 'Not in your assigned scope' });
-    res.json({ ok: true, assignment: store.assignLoco({ loco_id: req.params.locoId, shed_id, position, user: req.user.sub, reason }) });
+    res.json({ ok: true, assignment: store.assignLoco({ loco_id: req.params.locoId, shed_id, user: req.user.sub, reason }) });
   });
   router.get('/locos/:locoId/history', (req, res) => {
     if (!store.canSeeLoco(req.user, req.params.locoId)) return res.status(403).json({ error: 'Not in your assigned scope' });
@@ -172,7 +174,7 @@ function apiRouter(store, notifier) {
     const csv = rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
     store.logAudit({ user: req.user.sub, action: 'export_csv', detail: `${sensors.length} sensors` });
     res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename="raip_d3_readings.csv"');
+    res.setHeader('Content-Disposition', 'attachment; filename="raip_loco_readings.csv"');
     res.send(csv);
   });
 
@@ -231,7 +233,7 @@ function apiRouter(store, notifier) {
     res.json({
       sheds: [...store.sheds.values()],
       locos: [...store.locos.values()].map((c) => { const a = store.assignment.get(c.loco_id) || {};
-        return { ...c, shed_id: a.shed_id || null, position: a.position || null }; }),
+        return { ...c, shed_id: a.shed_id || null }; }),
       sensors: store.allSensors().map((s) => ({ sensor_id: s.sensor_id, tm_id: s.tm_id, loco_id: s.loco_id,
         shed_id: s.shed_id, sensor_type: s.sensor_type, status: s.status, temperature: s.temperature,
         battery_health: s.battery_health, signal_strength: s.signal_strength, last_update: s.last_update })),
