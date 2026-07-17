@@ -98,12 +98,12 @@
   .shed-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .shed-head .name{font-weight:600;font-size:15px}
   .shed-head .meta{font-size:12px;color:var(--muted);font-family:var(--mono)}
-  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(600px,1fr));gap:12px}
+  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(980px,1fr));gap:12px}
   .loco{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px}
   .loco-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .loco-head .cid{font-family:var(--mono);font-weight:600;font-size:13px}
-  .tmgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-  .gaugecard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:transform .1s}
+  .tmgrid{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:8px;overflow-x:auto;padding-bottom:2px}
+  .gaugecard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:9px;cursor:pointer;transition:transform .1s}
   .gaugecard:hover{transform:translateY(-2px)}
   .gc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px}
   .gc-tm{font-weight:700;font-size:15px;color:var(--text)}
@@ -155,7 +155,7 @@
 
   /* Digital twin */
   .train{display:flex;gap:10px;overflow-x:auto;padding:10px 2px 16px}
-  .car{min-width:480px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
+  .car{min-width:980px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
   .car::after{content:"";position:absolute;left:24px;right:24px;bottom:-7px;height:7px;background:var(--off);border-radius:0 0 6px 6px;opacity:.4}
   .car .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .car .ch .cid{font-family:var(--mono);font-weight:600;font-size:13px}
@@ -815,10 +815,10 @@
           byTm[num][side]=t;
         });
         var nums=Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);});
-        nums.forEach(function(num){
-          var tmLabel='TM '+num.replace('TM','');
-          tmg.appendChild(tmGaugeCard(byTm[num].DE,tmLabel,'DE'));
-          tmg.appendChild(tmGaugeCard(byTm[num].NDE,tmLabel,'NDE'));
+        ['DE','NDE'].forEach(function(side){
+          nums.forEach(function(num){
+            tmg.appendChild(tmGaugeCard(byTm[num][side],'TM '+num.replace('TM',''),side));
+          });
         });
         cc.appendChild(tmg);consist.appendChild(cc);
       });
@@ -846,10 +846,10 @@
         byTm[num][side]=tm;
       });
       var nums=Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);});
-      nums.forEach(function(num){
-        var tmLabel='TM '+num.replace('TM','');
-        tmg.appendChild(tmGaugeCard(byTm[num].DE,tmLabel,'DE'));
-        tmg.appendChild(tmGaugeCard(byTm[num].NDE,tmLabel,'NDE'));
+      ['DE','NDE'].forEach(function(side){
+        nums.forEach(function(num){
+          tmg.appendChild(tmGaugeCard(byTm[num][side],'TM '+num.replace('TM',''),side));
+        });
       });
       car.appendChild(tmg);
       t.appendChild(car);
