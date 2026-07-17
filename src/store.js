@@ -842,27 +842,10 @@ class Store {
   // Predictive prognostics (statistical, not trained-ML): battery-life
   // projection from real discharge rate + thermal-degradation trend.
   computePrognostics(sensors) {
-    const lsq = (xs, ys) => {
-      const n = xs.length; const sx = xs.reduce((a, b) => a + b, 0); const sy = ys.reduce((a, b) => a + b, 0);
-      const sxx = xs.reduce((a, b) => a + b * b, 0); const sxy = xs.reduce((a, b, i) => a + xs[i] * ys[i], 0);
-      const d = n * sxx - sx * sx; return d === 0 ? 0 : (n * sxy - sx * sy) / d;
-    };
     const avg = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : null);
     const out = [];
     for (const s of sensors) {
       const buf = this.series.get(s.sensor_id) || [];
-      const bp = buf.filter((p) => p.battery != null);
-      let batt_rate_per_day = null; let batt_days_left = null;
-      if (bp.length >= 5) {
-        const t0 = Date.parse(bp[0].t); const tN = Date.parse(bp[bp.length - 1].t);
-        const spanDays = (tN - t0) / 86400000;
-        if (spanDays >= 0.02) { // need at least ~30 min of history to project meaningfully
-          const xs = bp.map((p) => (Date.parse(p.t) - t0) / 86400000);
-          const slope = lsq(xs, bp.map((p) => p.battery));
-          batt_rate_per_day = +slope.toFixed(2);
-          if (slope < -0.01 && s.battery_health != null) batt_days_left = Math.max(0, +((s.battery_health - 5) / -slope).toFixed(1));
-        }
-      }
       const tp = buf.filter((p) => p.temperature != null);
       let thermal_trend = 'insufficient-data'; let recent_avg = null; let base_avg = null; let peak = null;
       if (tp.length >= 10) {
@@ -875,15 +858,13 @@ class Store {
       }
       let verdict = 'healthy';
       if (thermal_trend === 'degrading') verdict = 'watch';
-      if (batt_days_left != null && batt_days_left < 30) verdict = 'battery-low';
       if (peak != null && peak >= this.getThresholds().CFG_CRIT_TEMP) verdict = 'thermal-risk';
       if (s.status === 'offline') verdict = 'offline';
       out.push({ sensor_id: s.sensor_id, tm_id: s.tm_id, loco_id: s.loco_id, shed_id: s.shed_id,
-        battery: s.battery_health, batt_rate_per_day, batt_days_left,
         base_avg, recent_avg, peak, thermal_trend, verdict });
     }
-    const order = { 'thermal-risk': 0, 'battery-low': 1, watch: 2, offline: 3, healthy: 4 };
-    out.sort((a, b) => (order[a.verdict] || 5) - (order[b.verdict] || 5));
+    const order = { 'thermal-risk': 0, watch: 1, offline: 2, healthy: 3 };
+    out.sort((a, b) => (order[a.verdict] || 4) - (order[b.verdict] || 4));
     return out;
   }
 

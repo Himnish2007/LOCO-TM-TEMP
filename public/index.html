@@ -98,23 +98,24 @@
   .shed-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .shed-head .name{font-weight:600;font-size:15px}
   .shed-head .meta{font-size:12px;color:var(--muted);font-family:var(--mono)}
-  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
   .loco{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px}
   .loco-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .loco-head .cid{font-family:var(--mono);font-weight:600;font-size:13px}
-  .loco-head .pos{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
-  .tms{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .tm{border-radius:8px;padding:10px;border:1px solid var(--line);background:var(--off-bg);cursor:pointer;transition:transform .08s}
-  .tm:hover{transform:translateY(-1px)}
-  .tm .tmid{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .tm .t{font-family:var(--mono);font-size:22px;font-weight:600;margin-top:2px}
-  .tm .t .u{font-size:11px;color:var(--muted);margin-left:1px}
-  .tm .sub{font-size:10px;color:var(--faint);margin-top:4px;font-family:var(--mono);display:flex;justify-content:space-between}
-  .tm.normal{background:var(--ok-bg);border-color:var(--ok)} .tm.normal .t{color:var(--ok)}
-  .tm.warning{background:var(--warn-bg);border-color:var(--warn)} .tm.warning .t{color:var(--warn)}
-  .tm.high{background:var(--high-bg);border-color:var(--high)} .tm.high .t{color:var(--high)}
-  .tm.critical{background:var(--crit-bg);border-color:var(--crit)} .tm.critical .t{color:var(--crit);animation:flash 1.4s infinite}
-  .tm.offline{opacity:.55} .tm.offline .t{color:var(--off)}
+  .tmgrid{display:flex;flex-direction:column;gap:6px}
+  .tmrow{display:grid;grid-template-columns:38px 1fr 1fr;gap:6px;align-items:stretch}
+  .tmrow .tmnum{font-size:11px;color:var(--muted);font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
+  .tmside{border-radius:7px;padding:6px 10px;border:1px solid var(--line);background:var(--off-bg);cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:6px;transition:transform .08s}
+  .tmside:hover{transform:translateY(-1px)}
+  .tmside .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .tmside .val{font-family:var(--mono);font-size:16px;font-weight:600;white-space:nowrap}
+  .tmside .val .u{font-size:10px;color:var(--muted);margin-left:1px}
+  .tmside.normal{background:var(--ok-bg);border-color:var(--ok)} .tmside.normal .val{color:var(--ok)}
+  .tmside.warning{background:var(--warn-bg);border-color:var(--warn)} .tmside.warning .val{color:var(--warn)}
+  .tmside.high{background:var(--high-bg);border-color:var(--high)} .tmside.high .val{color:var(--high)}
+  .tmside.critical{background:var(--crit-bg);border-color:var(--crit)} .tmside.critical .val{color:var(--crit);animation:flash 1.4s infinite}
+  .tmside.offline{opacity:.55} .tmside.offline .val{color:var(--off)}
   @keyframes flash{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}50%{box-shadow:0 0 0 3px rgba(220,38,38,.22)}}
 
   .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
@@ -145,22 +146,17 @@
 
   /* Digital twin */
   .train{display:flex;gap:10px;overflow-x:auto;padding:10px 2px 16px}
-  .car{min-width:210px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
+  .car{min-width:300px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
   .car::after{content:"";position:absolute;left:24px;right:24px;bottom:-7px;height:7px;background:var(--off);border-radius:0 0 6px 6px;opacity:.4}
   .car .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .car .ch .cid{font-family:var(--mono);font-weight:600;font-size:13px}
-  .car .ch .pos{font-size:10px;color:var(--faint)}
-  .bogies{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .bg{border-radius:8px;padding:10px 8px;text-align:center;border:1px solid var(--line);cursor:pointer}
-  .bg .lbl{font-size:10px;color:var(--muted)} .bg .v{font-family:var(--mono);font-weight:600;font-size:18px;margin-top:3px}
-  .carmeta{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);font-family:var(--mono);margin-top:10px}
 
   /* Heatmap */
   .hm{display:grid;gap:3px}
-  .hm-row{display:grid;grid-template-columns:130px repeat(4,1fr);gap:3px}
+  .hm-row{display:grid;grid-template-columns:150px repeat(12,1fr);gap:3px}
   .hm-lbl{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;align-items:center;padding-left:4px}
-  .hm-cell{border-radius:6px;padding:12px 6px;text-align:center;color:#fff;font-family:var(--mono);font-weight:600;font-size:14px;cursor:pointer}
-  .hm-head{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding-bottom:4px}
+  .hm-cell{border-radius:6px;padding:9px 4px;text-align:center;color:#fff;font-family:var(--mono);font-weight:600;font-size:12px;cursor:pointer}
+  .hm-head{font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:center;padding-bottom:4px}
   .scalebar{height:12px;border-radius:6px;background:linear-gradient(90deg,#1e6fd0,#16a34a,#d97706,#dc2626);width:240px}
 </style>
 </head>
@@ -292,9 +288,9 @@
         <thead><tr><th>TM</th><th>Loco</th><th>Shed</th><th>Temp</th><th>Rise Rate</th><th>Est. time to Critical</th><th>Risk</th></tr></thead>
         <tbody id="predRows"></tbody></table><div class="empty" id="predEmpty" style="display:none">Not enough data yet — projections need a few readings per sensor.</div></div>
 
-      <div class="view-head" style="margin-top:22px"><h2 style="font-size:14px">Prognostics</h2><span class="desc">Battery-life projection &amp; thermal-degradation trend (statistical, from observed data)</span></div>
+      <div class="view-head" style="margin-top:22px"><h2 style="font-size:14px">Prognostics</h2><span class="desc">Thermal-degradation trend (statistical, from observed data)</span></div>
       <div class="panel"><table>
-        <thead><tr><th>TM</th><th>Loco</th><th>Battery %</th><th>Discharge/day</th><th>Est. Battery Life</th><th>Baseline→Recent Avg</th><th>Peak</th><th>Thermal Trend</th><th>Verdict</th></tr></thead>
+        <thead><tr><th>TM</th><th>Loco</th><th>Baseline→Recent Avg</th><th>Peak</th><th>Thermal Trend</th><th>Verdict</th></tr></thead>
         <tbody id="progRows"></tbody></table><div class="empty" id="progEmpty" style="display:none">Collecting data — prognostics need a running trend.</div></div>
 
       <div class="view-head" style="margin-top:22px"><h2 style="font-size:14px">Peer Anomalies</h2><span class="desc">A motor running much hotter than its sibling motors on the same loco — early warning before it crosses a threshold</span></div>
@@ -332,7 +328,7 @@
 
       <div class="view-head"><h2 style="font-size:14px">Users &amp; Roles</h2><button class="mini" id="addUserBtn" style="margin-left:auto">+ Add user</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Username</th><th>Role</th><th>Email</th><th>Mobile</th><th>Assigned SHEDS</th><th>Assigned Locos</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Username</th><th>Role</th><th>Email</th><th>Mobile</th><th>Assigned Sheds</th><th>Assigned Locos</th><th>Actions</th></tr></thead>
         <tbody id="adminUsers"></tbody></table></div>
 
       <div class="view-head"><h2 style="font-size:14px">SHEDS</h2><button class="mini" id="addShedBtn" style="margin-left:auto">+ Add SHED</button></div>
@@ -352,13 +348,8 @@
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Depots</h2><button class="mini" id="addDepotBtn" style="margin-left:auto">+ Add depot</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Depot ID</th><th>Name</th><th>Region</th><th>Lat</th><th>Lng</th><th>SHEDS</th><th>Locos</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Depot ID</th><th>Name</th><th>Region</th><th>Lat</th><th>Lng</th><th>Sheds</th><th>Locos</th><th>Actions</th></tr></thead>
         <tbody id="adminDepots"></tbody></table><div class="empty" id="depotEmpty" style="display:none">No depots yet.</div></div>
-
-      <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Field Devices (RUT self-update)</h2><button class="mini" id="addDeviceBtn" style="margin-left:auto">+ Register device</button></div>
-      <div class="panel" style="margin-bottom:18px"><div class="desc" style="padding:8px 4px">Each RUT pulls its config from here every few minutes. Change loco/tags here and the device updates itself — no site visit needed.</div><table>
-        <thead><tr><th>Device ID</th><th>Loco</th><th>Shed</th><th>Tags (TM1-6)</th><th>Interval</th><th>Enabled</th><th>Last Seen</th><th>Actions</th></tr></thead>
-        <tbody id="adminDevices"></tbody></table><div class="empty" id="deviceEmpty" style="display:none">No field devices registered.</div></div>
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Bulk Loco Import</h2></div>
       <div class="panel" style="padding:16px;margin-bottom:18px">
@@ -481,7 +472,7 @@
       <div class="view-head"><h2>Fleet Assistant</h2><span class="desc">Ask about your fleet in plain words · answers from live data (rule-based, not an external AI)</span></div>
       <div class="panel" style="padding:16px;margin-bottom:14px">
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <input id="asstInput" class="inp" style="flex:1;min-width:240px" placeholder="e.g. which locos are critical? / show offline / hottest TM / lowest battery / active alerts">
+          <input id="asstInput" class="inp" style="flex:1;min-width:240px" placeholder="e.g. which locos are critical? / show offline / hottest TM / coolest TM / active alerts">
           <button class="btn" id="asstAsk">Ask</button>
         </div>
         <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap" id="asstChips"></div>
@@ -752,14 +743,28 @@
           cc.style.borderColor='var(--off)';
         }
         cc.appendChild(ch);
-        var tms=el('div','tms');
+        var tmg=el('div','tmgrid');
+        var byTm={};
         c.tms.forEach(function(t){
-          var tile=el('div','tm '+t.classification);tile.appendChild(el('div','tmid',t.tm_id||t.sensor_id));
-          var tv=el('div','t');tv.innerHTML=(t.status==='offline'||t.temperature==null?'—':t.temperature.toFixed(1))+'<span class="u">°C</span>';tile.appendChild(tv);
-          var sub=el('div','sub');sub.appendChild(el('span',null,t.status==='offline'?'OFFLINE':'⚡'+(t.signal_strength||0)+'%'));sub.appendChild(el('span',null,'🔋'+(t.battery_health==null?'—':t.battery_health+'%')));tile.appendChild(sub);
-          tile.addEventListener('click',function(){openTrend(t.sensor_id);});tms.appendChild(tile);
+          var parts=String(t.tm_id||'').split('-');var num=parts[0]||t.tm_id;var side=(parts[1]||'').toUpperCase();
+          if(!byTm[num])byTm[num]={};
+          byTm[num][side]=t;
         });
-        cc.appendChild(tms);consist.appendChild(cc);
+        Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);}).forEach(function(num){
+          var pair=byTm[num];var row=el('div','tmrow');row.appendChild(el('span','tmnum',num.replace('TM','')));
+          ['DE','NDE'].forEach(function(side){
+            var t=pair[side];
+            var tile=el('div','tmside '+(t?t.classification:'offline'));
+            tile.appendChild(el('span','lbl',side));
+            var v=el('span','val');
+            v.innerHTML=(t&&t.status!=='offline'&&t.temperature!=null?t.temperature.toFixed(1):'—')+'<span class="u">°C</span>';
+            tile.appendChild(v);
+            if(t)tile.addEventListener('click',function(){openTrend(t.sensor_id);});
+            row.appendChild(tile);
+          });
+          tmg.appendChild(row);
+        });
+        cc.appendChild(tmg);consist.appendChild(cc);
       });
       card.appendChild(consist);wrap.appendChild(card);
     });
@@ -777,36 +782,50 @@
     if(!e){t.appendChild(el('div','empty','No shed selected'));return;}
     e.locos.forEach(function(c){
       var car=el('div','car');var ch=el('div','ch');ch.appendChild(el('span','cid',c.loco_id));car.appendChild(ch);
-      var bg=el('div','bogies');var sig=0,bat=0,n=0;
+      var tmg=el('div','tmgrid');
+      var byTm={};
       c.tms.forEach(function(tm){
-        var cell=el('div','bg '+tm.classification);
-        cell.style.background='var(--'+(tm.classification==='normal'?'ok':tm.classification)+'-bg)';
-        cell.style.borderColor='var(--'+(tm.classification==='normal'?'ok':tm.classification==='offline'?'off':tm.classification)+')';
-        cell.appendChild(el('div','lbl',tm.tm_id||tm.sensor_id));
-        var v=el('div','v',(tm.temperature==null||tm.status==='offline')?'—':tm.temperature.toFixed(1)+'°');
-        v.style.color='var(--'+(tm.classification==='normal'?'ok':tm.classification==='offline'?'off':tm.classification)+')';
-        cell.appendChild(v);cell.addEventListener('click',function(){openTrend(tm.sensor_id);});bg.appendChild(cell);
-        if(tm.signal_strength!=null){sig+=tm.signal_strength;n++;} if(tm.battery_health!=null)bat=Math.max(bat,tm.battery_health);
+        var parts=String(tm.tm_id||'').split('-');var num=parts[0]||tm.tm_id;var side=(parts[1]||'').toUpperCase();
+        if(!byTm[num])byTm[num]={};
+        byTm[num][side]=tm;
       });
-      car.appendChild(bg);
-      var meta=el('div','carmeta');meta.appendChild(el('span',null,'⚡ '+(n?Math.round(sig/n):0)+'%'));meta.appendChild(el('span',null,'🔋 '+bat+'%'));car.appendChild(meta);
+      Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);}).forEach(function(num){
+        var pair=byTm[num];var row=el('div','tmrow');row.appendChild(el('span','tmnum',num.replace('TM','')));
+        ['DE','NDE'].forEach(function(side){
+          var tm=pair[side];
+          var cell=el('div','tmside '+(tm?tm.classification:'offline'));
+          cell.appendChild(el('span','lbl',side));
+          var v=el('span','val');
+          v.innerHTML=(tm&&tm.status!=='offline'&&tm.temperature!=null?tm.temperature.toFixed(1):'—')+'<span class="u">°C</span>';
+          cell.appendChild(v);
+          if(tm)cell.addEventListener('click',function(){openTrend(tm.sensor_id);});
+          row.appendChild(cell);
+        });
+        tmg.appendChild(row);
+      });
+      car.appendChild(tmg);
       t.appendChild(car);
     });
   }
 
   async function renderHeatmap(){
     var sheds=await api('/sheds');var hm=$('#heatmap');hm.innerHTML='';
-    var head=el('div','hm-row');head.appendChild(el('div','hm-head',''));['TM1','TM2','TM3','TM4'].forEach(function(h){head.appendChild(el('div','hm-head',h));});hm.appendChild(head);
+    var HM_LABELS=['TM1-DE','TM1-NDE','TM2-DE','TM2-NDE','TM3-DE','TM3-NDE','TM4-DE','TM4-NDE','TM5-DE','TM5-NDE','TM6-DE','TM6-NDE'];
+    var head=el('div','hm-row');head.appendChild(el('div','hm-head',''));HM_LABELS.forEach(function(h){head.appendChild(el('div','hm-head',h.replace('TM','')));});hm.appendChild(head);
     var rows=[];
-    sheds.forEach(function(e){e.locos.forEach(function(c){rows.push({label:e.shed_id+' · '+c.loco_id,tms:c.tms,max:Math.max.apply(null,c.tms.map(function(t){return t.temperature||0;}))});});});
+    sheds.forEach(function(e){e.locos.forEach(function(c){
+      var byLabel={};c.tms.forEach(function(t){byLabel[t.tm_id]=t;});
+      var ordered=HM_LABELS.map(function(l){return byLabel[l]||{tm_id:l,temperature:null,status:'offline'};});
+      rows.push({label:e.shed_id+' · '+c.loco_id,tms:ordered,max:Math.max.apply(null,ordered.map(function(t){return t.temperature||0;}))});
+    });});
     rows.sort(function(a,b){return b.max-a.max;});
-    function color(t){if(t==null)return 'var(--off)';if(t>90)return '#dc2626';if(t>80)return '#ea580c';if(t>70)return '#d97706';if(t>62)return '#65a30d';return '#1e6fd0';}
+    function color(t){if(t==null)return 'var(--off)';if(t>160)return '#dc2626';if(t>140)return '#ea580c';if(t>120)return '#d97706';if(t>90)return '#65a30d';return '#1e6fd0';}
     rows.forEach(function(r){
       var row=el('div','hm-row');row.appendChild(el('div','hm-lbl',r.label));
       r.tms.forEach(function(t){
         var cell=el('div','hm-cell',(t.temperature==null||t.status==='offline')?'—':t.temperature.toFixed(0)+'°');
         cell.style.background=color(t.status==='offline'?null:t.temperature);
-        cell.title=(t.tm_id||t.sensor_id);cell.addEventListener('click',function(){openTrend(t.sensor_id);});row.appendChild(cell);
+        cell.title=(t.tm_id||t.sensor_id);if(t.sensor_id)cell.addEventListener('click',function(){openTrend(t.sensor_id);});row.appendChild(cell);
       });
       hm.appendChild(row);
     });
@@ -985,13 +1004,10 @@
     // prognostics
     var pg=await api('/prognostics');var pt=$('#progRows');pt.innerHTML='';
     $('#progEmpty').style.display=pg.length?'none':'block';
-    var vColor={'thermal-risk':'crit','battery-low':'warn','watch':'warn','offline':'off','healthy':'ok'};
+    var vColor={'thermal-risk':'crit','watch':'warn','offline':'off','healthy':'ok'};
     pg.forEach(function(p){
       var tr=el('tr');
       tr.appendChild(el('td',null,p.tm_id||p.sensor_id));tr.appendChild(el('td',null,p.loco_id||'—'));
-      tr.appendChild(el('td',null,p.battery==null?'—':p.battery+'%'));
-      tr.appendChild(el('td',null,p.batt_rate_per_day==null?'—':p.batt_rate_per_day+'%/day'));
-      tr.appendChild(el('td',null,p.batt_days_left==null?'—':(p.batt_days_left>=365?'>1yr':p.batt_days_left+' days')));
       tr.appendChild(el('td',null,(p.base_avg==null?'—':p.base_avg+'°')+' → '+(p.recent_avg==null?'—':p.recent_avg+'°')));
       tr.appendChild(el('td',null,p.peak==null?'—':p.peak+'°'));
       tr.appendChild(el('td',null,p.thermal_trend));
@@ -1131,7 +1147,6 @@
     $('#rpSave').addEventListener('click',saveReportSchedule);
     $('#rpSend').addEventListener('click',sendReportNow);
     $('#addDepotBtn').addEventListener('click',function(){editDepot(null);});
-    $('#addDeviceBtn').addEventListener('click',function(){editDevice(null);});
     $('#backupBtn').addEventListener('click',function(){download('/backup','raip_backup.json').catch(function(e){alert(e.message);});});
     $('#restoreBtn').addEventListener('click',function(){$('#restoreFile').click();});
     $('#restoreFile').addEventListener('change',doRestore);
@@ -1143,7 +1158,7 @@
   async function renderAdmin(){
     var ro=!isAdmin();
     $('#adminScopeNote').textContent=ro?'Read-only view — editing requires Super Admin':'Super Admin · full master-data control';
-    ['addUserBtn','addShedBtn','addLocoBtn','thSave','addDepotBtn','bulkBtn','addDeviceBtn'].forEach(function(id){$('#'+id).style.display=ro?'none':'';});
+    ['addUserBtn','addShedBtn','addLocoBtn','thSave','addDepotBtn','bulkBtn'].forEach(function(id){$('#'+id).style.display=ro?'none':'';});
     // thresholds
     var th=await api('/thresholds');
     $('#thWarn').value=th.CFG_WARN_TEMP;$('#thHigh').value=th.CFG_HIGH_TEMP;$('#thCrit').value=th.CFG_CRIT_TEMP;
@@ -1198,26 +1213,6 @@
       tr.appendChild(ac);td.appendChild(tr);
     });
     renderSysStatus();
-    // field devices
-    var devs=await api('/devices-registry');var tdv=$('#adminDevices');tdv.innerHTML='';
-    $('#deviceEmpty').style.display=devs.length?'none':'block';
-    devs.forEach(function(dv){
-      var tr=el('tr');
-      [dv.device_id,dv.loco_id||'—',dv.shed_id||'—',[dv.tag1,dv.tag2,dv.tag3,dv.tag4].join(', '),(dv.post_interval||10)+'s',dv.enabled===false?'No':'Yes',dv.last_seen?ago(dv.last_seen):'never'].forEach(function(v){tr.appendChild(el('td',null,v));});
-      var ac=el('td');
-      if(!ro){ac.appendChild(mkBtn('Edit',function(){editDevice(dv);}));ac.appendChild(mkBtn('Delete',function(){if(confirm('Delete device '+dv.device_id+'?'))adminCall('/devices-registry/'+dv.device_id,'DELETE');}));}else ac.textContent='—';
-      tr.appendChild(ac);tdv.appendChild(tr);
-    });
-  }
-  function editDevice(dv){
-    var id=dv?dv.device_id:prompt('Device ID (must match DEVICE_ID in the RUT script, e.g. DEV-01):','');if(!id)return;
-    var loco=prompt('Assign to Loco id (e.g. MC-01):',dv?(dv.loco_id||''):'');if(loco===null)return;
-    var shed=prompt('SHED id (e.g. SHED-01):',dv?(dv.shed_id||''):'');
-    var tags=prompt('Modbus tags for TM1,TM2,TM3,TM4 (comma separated):',dv?[dv.tag1,dv.tag2,dv.tag3,dv.tag4].join(','):'1.3,1.4,1.5,1.6');
-    var iv=prompt('Post interval seconds:',dv?(dv.post_interval||10):'10');
-    var en=confirm('Enabled? OK = enabled, Cancel = disabled');
-    var t=(tags||'1.3,1.4,1.5,1.6').split(',').map(function(x){return x.trim();});
-    adminCall('/devices-registry'+(dv?'/'+dv.device_id:''),dv?'PUT':'POST',{device_id:id,loco_id:loco,shed_id:shed,tag1:t[0],tag2:t[1],tag3:t[2],tag4:t[3],post_interval:+iv||10,enabled:en});
   }
   async function renderSysStatus(){
     try{var st=await api('/system-status');var k=$('#sysKpis');k.innerHTML='';
@@ -1481,7 +1476,7 @@
   var ASST_BOUND=false;
   function renderAssistant(){
     if(!ASST_BOUND){
-      var chips=$('#asstChips');var qs=['Which locos are critical?','Show offline locos','Hottest TM','Lowest battery','Active alerts','Fleet summary','Help'];
+      var chips=$('#asstChips');var qs=['Which locos are critical?','Show offline locos','Hottest TM','Coolest TM','Active alerts','Fleet summary','Help'];
       chips.innerHTML='';
       qs.forEach(function(q){var b=el('button','mini',q);b.addEventListener('click',function(){$('#asstInput').value=q;askAssistant(q);});chips.appendChild(b);});
       $('#asstAsk').addEventListener('click',function(){askAssistant($('#asstInput').value);});
@@ -1498,7 +1493,7 @@
     }catch(e){}
     try{
       var sheds=await api('/sheds');
-      var tms=[];sheds.forEach(function(e){(e.locos||[]).forEach(function(c){(c.tms||[]).forEach(function(t){tms.push({loco:c.loco_id,shed:e.shed_id,tm:t.tm_id||t.sensor_id,temp:t.temperature,cls:t.classification,status:t.status,batt:t.battery_health});});});});
+      var tms=[];sheds.forEach(function(e){(e.locos||[]).forEach(function(c){(c.tms||[]).forEach(function(t){tms.push({loco:c.loco_id,shed:e.shed_id,tm:t.tm_id||t.sensor_id,temp:t.temperature,cls:t.classification,status:t.status});});});});
       var online=tms.filter(function(t){return t.status!=='offline';});
       function list(rows,cols){ if(!rows.length)return '<div class="desc">None found. 👍</div>';
         var h='<table style="width:100%"><thead><tr>'+cols.map(function(c){return '<th>'+c[0]+'</th>';}).join('')+'</tr></thead><tbody>';
@@ -1510,7 +1505,6 @@
           '• <b>critical / high / warning</b> — TMs at that alert level<br>'+
           '• <b>offline</b> — locos/TMs not reporting<br>'+
           '• <b>hottest / coolest</b> — highest / lowest temperature TM<br>'+
-          '• <b>battery</b> — lowest-battery sensors<br>'+
           '• <b>alerts</b> — active alerts<br>'+
           '• <b>summary</b> — fleet overview<br><br>'+
           '<span class="desc">Note: rule-based assistant over your own data — not an external AI service.</span>';
@@ -1534,14 +1528,11 @@
       } else if(q.indexOf('cool')>=0||q.indexOf('lowest temp')>=0){
         var sc=online.slice().sort(function(a,b){return (a.temp||0)-(b.temp||0);}).slice(0,5);
         ans='<b>Coolest TMs</b><br>'+list(sc,[['TM','tm'],['Loco','loco'],['Temp °C','temp']]);
-      } else if(q.indexOf('batt')>=0){
-        var sb=online.filter(function(t){return t.batt!=null;}).sort(function(a,b){return a.batt-b.batt;}).slice(0,5);
-        ans='<b>Lowest battery</b><br>'+list(sb,[['TM','tm'],['Loco','loco'],['Battery %','batt']]);
       } else if(q.indexOf('alert')>=0){
         var al=await api('/alerts?state=active');
         ans='<b>Active alerts: '+al.length+'</b><br>'+list(al.slice(0,20).map(function(a){return {sev:a.severity,asset:a.loco_id||a.sensor_id,detail:a.message};}),[['Severity','sev'],['Asset','asset'],['Detail','detail']]);
       } else {
-        ans='<div class="desc">Didn\'t catch that. Try: <b>critical</b>, <b>offline</b>, <b>hottest</b>, <b>battery</b>, <b>alerts</b>, <b>summary</b> — or type <b>help</b>.</div>';
+        ans='<div class="desc">Didn\'t catch that. Try: <b>critical</b>, <b>offline</b>, <b>hottest</b>, <b>coolest</b>, <b>alerts</b>, <b>summary</b> — or type <b>help</b>.</div>';
       }
       out.innerHTML=ans;
     }catch(e){out.innerHTML='<div class="desc">Error: '+e.message+'</div>';}
