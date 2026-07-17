@@ -98,17 +98,18 @@
   .shed-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
   .shed-head .name{font-weight:600;font-size:15px}
   .shed-head .meta{font-size:12px;color:var(--muted);font-family:var(--mono)}
-  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
+  .consist{display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:12px}
   .loco{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px}
   .loco-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .loco-head .cid{font-family:var(--mono);font-weight:600;font-size:13px}
-  .tmgrid{display:flex;flex-direction:column;gap:6px}
-  .tmrow{display:grid;grid-template-columns:38px 1fr 1fr;gap:6px;align-items:stretch}
-  .tmrow .tmnum{font-size:11px;color:var(--muted);font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center}
-  .tmside{border-radius:7px;padding:6px 10px;border:1px solid var(--line);background:var(--off-bg);cursor:pointer;
-    display:flex;justify-content:space-between;align-items:center;gap:6px;transition:transform .08s}
+  .tmgrid{display:flex;flex-direction:column;gap:8px}
+  .tmrow{display:grid;grid-template-columns:34px repeat(6,1fr);gap:6px;align-items:stretch}
+  .tmrow .sidelbl{font-size:11px;color:var(--muted);font-weight:700;font-family:var(--mono);
+    display:flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.04em}
+  .tmside{border-radius:8px;padding:10px 4px;border:1px solid var(--line);background:var(--off-bg);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:64px;transition:transform .08s}
   .tmside:hover{transform:translateY(-1px)}
-  .tmside .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .tmside .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
   .tmside .val{font-family:var(--mono);font-size:16px;font-weight:600;white-space:nowrap}
   .tmside .val .u{font-size:10px;color:var(--muted);margin-left:1px}
   .tmside.normal{background:var(--ok-bg);border-color:var(--ok)} .tmside.normal .val{color:var(--ok)}
@@ -146,7 +147,7 @@
 
   /* Digital twin */
   .train{display:flex;gap:10px;overflow-x:auto;padding:10px 2px 16px}
-  .car{min-width:300px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
+  .car{min-width:480px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px 14px 8px 8px;padding:12px;position:relative}
   .car::after{content:"";position:absolute;left:24px;right:24px;bottom:-7px;height:7px;background:var(--off);border-radius:0 0 6px 6px;opacity:.4}
   .car .ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .car .ch .cid{font-family:var(--mono);font-weight:600;font-size:13px}
@@ -322,6 +323,7 @@
           <div class="f"><label>Offline after (s)</label><input class="inp" id="thOff" type="number" style="width:120px"></div>
           <div class="f"><label>Low battery ≤ %</label><input class="inp" id="thBat" type="number" style="width:120px"></div>
           <div class="f"><label>Rapid rise ≥ °C/min</label><input class="inp" id="thRise" type="number" step="0.5" style="width:130px"></div>
+          <div class="f"><label>Log data every (s)</label><input class="inp" id="thLog" type="number" style="width:120px"></div>
           <div class="f"><label>&nbsp;</label><button class="btn ghost" id="thSave">Save thresholds</button></div>
         </div>
       </div>
@@ -733,7 +735,7 @@
     sheds.forEach(function(e){
       var card=el('div','shed');var head=el('div','shed-head');
       head.appendChild(el('span','name',e.name));
-      head.appendChild(el('span','meta','· '+e.locos.length+' locos · '+e.locos.reduce(function(a,c){return a+c.tms.length;},0)+' TMs'));
+      head.appendChild(el('span','meta','· '+e.locos.length+(e.locos.length===1?' loco':' locos')+' · '+e.locos.reduce(function(a,c){return a+c.tms.length;},0)+' TMs'));
       if(e._rank>=2){var b=el('span','sev '+(e._rank>=4?'critical':e._rank>=3?'high':'warning'),'NEEDS ATTENTION');b.style.marginLeft='6px';head.appendChild(b);}
       card.appendChild(head);var consist=el('div','consist');
       e.locos.forEach(function(c){
@@ -755,12 +757,13 @@
           if(!byTm[num])byTm[num]={};
           byTm[num][side]=t;
         });
-        Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);}).forEach(function(num){
-          var pair=byTm[num];var row=el('div','tmrow');row.appendChild(el('span','tmnum',num.replace('TM','')));
-          ['DE','NDE'].forEach(function(side){
-            var t=pair[side];
+        var nums=Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);});
+        ['DE','NDE'].forEach(function(side){
+          var row=el('div','tmrow');row.appendChild(el('span','sidelbl',side));
+          nums.forEach(function(num){
+            var t=byTm[num][side];
             var tile=el('div','tmside '+(t?t.classification:'offline'));
-            tile.appendChild(el('span','lbl',side));
+            tile.appendChild(el('span','lbl',num.replace('TM','TM ')));
             var v=el('span','val');
             v.innerHTML=(t&&t.status!=='offline'&&t.temperature!=null?t.temperature.toFixed(1):'—')+'<span class="u">°C</span>';
             tile.appendChild(v);
@@ -794,12 +797,13 @@
         if(!byTm[num])byTm[num]={};
         byTm[num][side]=tm;
       });
-      Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);}).forEach(function(num){
-        var pair=byTm[num];var row=el('div','tmrow');row.appendChild(el('span','tmnum',num.replace('TM','')));
-        ['DE','NDE'].forEach(function(side){
-          var tm=pair[side];
+      var nums=Object.keys(byTm).sort(function(a,b){return (parseInt(a.replace(/\D/g,''),10)||0)-(parseInt(b.replace(/\D/g,''),10)||0);});
+      ['DE','NDE'].forEach(function(side){
+        var row=el('div','tmrow');row.appendChild(el('span','sidelbl',side));
+        nums.forEach(function(num){
+          var tm=byTm[num][side];
           var cell=el('div','tmside '+(tm?tm.classification:'offline'));
-          cell.appendChild(el('span','lbl',side));
+          cell.appendChild(el('span','lbl',num.replace('TM','TM ')));
           var v=el('span','val');
           v.innerHTML=(tm&&tm.status!=='offline'&&tm.temperature!=null?tm.temperature.toFixed(1):'—')+'<span class="u">°C</span>';
           cell.appendChild(v);
@@ -1169,7 +1173,8 @@
     var th=await api('/thresholds');
     $('#thWarn').value=th.CFG_WARN_TEMP;$('#thHigh').value=th.CFG_HIGH_TEMP;$('#thCrit').value=th.CFG_CRIT_TEMP;
     $('#thOff').value=th.CFG_OFFLINE_SECONDS;$('#thBat').value=th.CFG_LOW_BATTERY;$('#thRise').value=th.CFG_RISE_RATE!=null?th.CFG_RISE_RATE:3;
-    ['thWarn','thHigh','thCrit','thOff','thBat','thRise'].forEach(function(id){$('#'+id).disabled=ro;});
+    $('#thLog').value=th.CFG_LOG_INTERVAL_SECONDS!=null?th.CFG_LOG_INTERVAL_SECONDS:60;
+    ['thWarn','thHigh','thCrit','thOff','thBat','thRise','thLog'].forEach(function(id){$('#'+id).disabled=ro;});
     // users
     var users=await api('/users');var tu=$('#adminUsers');tu.innerHTML='';
     var GLOBAL_ROLES=['super_admin','railway_hq'];
@@ -1305,7 +1310,7 @@
 
   async function saveThresholds(){
     var body={CFG_WARN_TEMP:+$('#thWarn').value,CFG_HIGH_TEMP:+$('#thHigh').value,CFG_CRIT_TEMP:+$('#thCrit').value,
-      CFG_OFFLINE_SECONDS:+$('#thOff').value,CFG_LOW_BATTERY:+$('#thBat').value,CFG_RISE_RATE:+$('#thRise').value};
+      CFG_OFFLINE_SECONDS:+$('#thOff').value,CFG_LOW_BATTERY:+$('#thBat').value,CFG_RISE_RATE:+$('#thRise').value,CFG_LOG_INTERVAL_SECONDS:+$('#thLog').value};
     try{await api('/thresholds',{method:'PUT',body:JSON.stringify(body)});$('#thSave').textContent='Saved ✓';setTimeout(function(){$('#thSave').textContent='Save thresholds';},1500);}
     catch(e){alert(e.message);}
   }

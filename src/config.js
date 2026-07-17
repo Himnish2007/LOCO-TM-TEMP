@@ -103,6 +103,7 @@ config.defaultThresholds = function () {
     CFG_CRIT_TEMP: config.CFG_CRIT_TEMP, CFG_OFFLINE_SECONDS: config.CFG_OFFLINE_SECONDS,
     CFG_LOW_BATTERY: config.CFG_LOW_BATTERY,
     CFG_RISE_RATE: num('CFG_RISE_RATE', 3), // deg C per minute -> rapid-rise alert
+    CFG_LOG_INTERVAL_SECONDS: num('CFG_LOG_INTERVAL_SECONDS', 60), // history/trend logging throttle
   };
 };
 

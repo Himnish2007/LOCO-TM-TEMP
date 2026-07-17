@@ -74,6 +74,7 @@ class Store {
     this.audit = [];
     this.notifications = [];       // SMS/email delivery log, newest first
     this.comm = new Map();         // loco_id -> live comm telemetry (rssi, packet_loss, lte...)
+    this._lastLogged = new Map();  // sensor_id -> ms timestamp of last history-logged point (throttle)
     this._notifier = null;         // server sets: fn(alert) => dispatch
     this._alertSeq = 1;
     this._saveTimer = null;
@@ -183,7 +184,7 @@ class Store {
   // ===== Thresholds =======================================================
   getThresholds() { return this.thresholds; }
   setThresholds(patch, user) {
-    const keys = ['CFG_WARN_TEMP', 'CFG_HIGH_TEMP', 'CFG_CRIT_TEMP', 'CFG_OFFLINE_SECONDS', 'CFG_LOW_BATTERY', 'CFG_RISE_RATE'];
+    const keys = ['CFG_WARN_TEMP', 'CFG_HIGH_TEMP', 'CFG_CRIT_TEMP', 'CFG_OFFLINE_SECONDS', 'CFG_LOW_BATTERY', 'CFG_RISE_RATE', 'CFG_LOG_INTERVAL_SECONDS'];
     for (const k of keys) if (patch[k] != null && Number.isFinite(Number(patch[k]))) this.thresholds[k] = Number(patch[k]);
     this.logAudit({ user, action: 'set_thresholds', detail: JSON.stringify(this.thresholds) });
     this._persist();
@@ -716,13 +717,19 @@ class Store {
     }
 
     this.sensors.set(r.sensor_id, meta);
+    const logIntervalMs = (t.CFG_LOG_INTERVAL_SECONDS || 0) * 1000;
+    const lastLoggedAt = this._lastLogged.get(r.sensor_id) || 0;
+    const nowMs = Date.parse(eventTime) || Date.now();
+    const shouldLog = logIntervalMs <= 0 || (nowMs - lastLoggedAt) >= logIntervalMs;
     const buf = this.series.get(r.sensor_id) || [];
-    buf.push({ t: eventTime, temperature: meta.temperature, battery: meta.battery_health });
-    if (buf.length > MAX_SERIES) buf.shift();
-    this.series.set(r.sensor_id, buf);
-
-    // Durable archive to PostgreSQL (never blocks or crashes the live path).
-    if (this.db) this.db.insertReading(meta).catch(() => {});
+    if (shouldLog) {
+      this._lastLogged.set(r.sensor_id, nowMs);
+      buf.push({ t: eventTime, temperature: meta.temperature, battery: meta.battery_health });
+      if (buf.length > MAX_SERIES) buf.shift();
+      this.series.set(r.sensor_id, buf);
+      // Durable archive to PostgreSQL (never blocks or crashes the live path).
+      if (this.db) this.db.insertReading(meta).catch(() => {});
+    }
 
     // Predictive: rapid temperature-rise detection over the recent window.
     if (meta.temperature != null && meta.status !== 'offline') {
