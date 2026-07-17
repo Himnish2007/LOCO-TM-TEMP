@@ -284,12 +284,15 @@ class Store {
   upsertDevice(body, actor) {
     if (!body.device_id) throw new Error('device_id required');
     const cur = this.devices.get(body.device_id) || { device_id: body.device_id, last_seen: null, last_ip: null };
-    ['name', 'loco_id', 'shed_id', 'tag1', 'tag2', 'tag3', 'tag4'].forEach((k) => { if (body[k] !== undefined) cur[k] = body[k] || null; });
+    const tagKeys = Array.from({ length: 12 }, (_, i) => `tag${i + 1}`);
+    ['name', 'loco_id', 'shed_id', ...tagKeys].forEach((k) => { if (body[k] !== undefined) cur[k] = body[k] || null; });
     if (body.post_interval !== undefined) cur.post_interval = Number(body.post_interval) || 10;
     if (body.enabled !== undefined) cur.enabled = !!body.enabled;
     if (cur.enabled === undefined) cur.enabled = true;
-    // sensible defaults for tag mapping
-    cur.tag1 = cur.tag1 || '1.3'; cur.tag2 = cur.tag2 || '1.4'; cur.tag3 = cur.tag3 || '1.5'; cur.tag4 = cur.tag4 || '1.6';
+    // Default Modbus register mapping — matches the live himnish_push.lua script exactly:
+    // registers 1584,1586,1588...1606 = TM1-DE, TM1-NDE, TM2-DE, TM2-NDE ... TM6-DE, TM6-NDE.
+    const DEFAULT_TAGS = ['1584', '1586', '1588', '1590', '1592', '1594', '1596', '1598', '1600', '1602', '1604', '1606'];
+    tagKeys.forEach((k, i) => { cur[k] = cur[k] || DEFAULT_TAGS[i]; });
     cur.post_interval = cur.post_interval || 10;
     this.devices.set(body.device_id, cur);
     this.logAudit({ user: actor, action: 'set_device', detail: body.device_id + ' -> ' + (cur.loco_id || 'unassigned') });
@@ -310,15 +313,20 @@ class Store {
     if (ip) d.last_ip = ip;
     // note: last_seen change is persisted lazily (debounced)
     this._persist();
+    const DEFAULT_TAGS = ['1584', '1586', '1588', '1590', '1592', '1594', '1596', '1598', '1600', '1602', '1604', '1606'];
+    const TM_LABELS = ['TM1-DE', 'TM1-NDE', 'TM2-DE', 'TM2-NDE', 'TM3-DE', 'TM3-NDE',
+      'TM4-DE', 'TM4-NDE', 'TM5-DE', 'TM5-NDE', 'TM6-DE', 'TM6-NDE'];
+    const tags = Array.from({ length: 12 }, (_, i) => d[`tag${i + 1}`] || DEFAULT_TAGS[i]);
     return {
       ok: true,
       enabled: d.enabled !== false,
       device_id: d.device_id,
       loco_id: d.loco_id || null,
       shed_id: d.shed_id || null,
-      ingest_path: '/api/v1/ingest',
-      api_key: config.DATA_API_KEY,
-      tags: [d.tag1 || '1.3', d.tag2 || '1.4', d.tag3 || '1.5', d.tag4 || '1.6'],
+      push_path: '/api/push',
+      api_key: config.PUSH_API_KEY,
+      tm_labels: TM_LABELS,
+      tags,
       post_interval: d.post_interval || 10,
     };
   }

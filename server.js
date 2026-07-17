@@ -181,7 +181,7 @@ securityChecks();
 bootstrap().then(() => {
   app.listen(config.PORT, () => {
     const t = store.getThresholds();
-    console.log(`HIMNISH Loco Traction Motor Monitoring on :${config.PORT}`);
+    console.log(`HIMNISH LOCO Traction Motor Monitoring on :${config.PORT}`);
     console.log(`DEMO_MODE=${config.DEMO_MODE}  DATA_DIR=${config.DATA_DIR}  DB=${store.db ? 'PostgreSQL' : 'JSON+memory'}`);
     console.log(`thresholds: warn>${t.CFG_WARN_TEMP} high>${t.CFG_HIGH_TEMP} crit>${t.CFG_CRIT_TEMP}`);
   });

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Loco Traction Motor Temperature Monitoring System</title>
+<title>LOCO Traction Motor Temperature Monitoring System</title>
 <link rel="icon" type="image/png" href="/assets/himnish-logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -165,7 +165,7 @@
 <div id="login">
   <div class="login-card">
     <div style="text-align:center;margin-bottom:14px"><img src="/assets/himnish-logo.png" alt="Himnish Limited" style="height:96px;width:auto"/></div>
-    <div style="text-align:center"><h1 style="margin:0">HIMNISH Loco TM</h1>
+    <div style="text-align:center"><h1 style="margin:0">HIMNISH LOCO TM</h1>
     <div class="sub" style="margin:4px 0 20px">Temperature Monitoring System · Himnish Limited</div></div>
     <div class="field"><label>Username</label><input id="u" autocomplete="username" /></div>
     <div class="field"><label>Password</label><input id="p" type="password" autocomplete="current-password" /></div>
@@ -178,7 +178,7 @@
 <div id="app">
   <div class="topbar">
     <img src="/assets/himnish-logo.png" alt="Himnish" style="height:30px;width:auto"/>
-    <span class="title">HIMNISH Loco <span style="color:var(--brand)">TM</span></span>
+    <span class="title">HIMNISH LOCO <span style="color:var(--brand)">TM</span></span>
     <span class="tag">LOCO · TM TEMP</span>
     <span id="demoBadge" style="display:none;font-family:var(--mono);font-size:11px;color:#fff;background:var(--warn);padding:2px 8px;border-radius:6px">DEMO MODE</span>
     <span class="spacer"></span>
@@ -201,7 +201,7 @@
     <button data-view="alerts">Alerts <span id="alertBadge"></span></button>
     <button data-view="analytics">Analytics</button>
     <button data-view="predict">Predict</button>
-    <button data-view="transfer">Loco Transfer</button>
+    <button data-view="transfer">LOCO Transfer</button>
     <button data-view="maint">Maintenance</button>
     <button data-view="assets">Admin</button>
     <button data-view="notify">Notify</button>
@@ -218,7 +218,7 @@
     </section>
 
     <section class="view" id="view-live">
-      <div class="view-head"><h2>Live Loco Monitoring</h2><span class="desc">Over-threshold locos float to the top · click a TM for its trend</span></div>
+      <div class="view-head"><h2>Live LOCO Monitoring</h2><span class="desc">Over-threshold locos float to the top · click a TM for its trend</span></div>
       <div class="row"><div class="f"><label>Show motor loco</label>
         <select id="liveLocoPick"><option value="">All assigned locos</option></select></div>
         <div class="f"><label>&nbsp;</label><span class="desc" id="liveCount"></span></div></div>
@@ -233,7 +233,7 @@
     </section>
 
     <section class="view" id="view-twin">
-      <div class="view-head"><h2>Loco Digital Twin</h2><span class="desc">Visual fleet layout · 6 traction motors (DE/NDE) per loco</span></div>
+      <div class="view-head"><h2>LOCO Digital Twin</h2><span class="desc">Visual fleet layout · 6 traction motors (DE/NDE) per loco</span></div>
       <div class="row"><div class="f"><label>Shed</label><select id="twinPick"></select></div></div>
       <div class="panel" style="padding:6px 14px"><div class="train" id="train"></div></div>
     </section>
@@ -249,11 +249,11 @@
       <div class="kpis" id="devStats" style="margin-bottom:18px"></div>
       <div class="view-head"><h2 style="font-size:14px">Data Concentrators</h2><span class="desc">Receives TM sensor data · forwards to LTE module</span></div>
       <div class="panel" style="margin-bottom:18px;overflow-x:auto"><table>
-        <thead><tr><th>Concentrator</th><th>Loco</th><th>Shed</th><th>Status</th><th>Sensors</th><th>Avg Signal</th><th>RSSI</th><th>Packet Loss</th><th>Latency</th><th>Retry</th><th>Checksum</th><th>Last Comm</th></tr></thead>
+        <thead><tr><th>Concentrator</th><th>LOCO</th><th>Shed</th><th>Status</th><th>Sensors</th><th>Avg Signal</th><th>RSSI</th><th>Packet Loss</th><th>Latency</th><th>Retry</th><th>Checksum</th><th>Last Comm</th></tr></thead>
         <tbody id="dcRows"></tbody></table><div class="empty" id="dcEmpty" style="display:none">No concentrators in your scope yet.</div></div>
       <div class="view-head"><h2 style="font-size:14px">LTE Communication Modules</h2><span class="desc">4G cloud uplink · IP65 · 77–130 VDC</span></div>
       <div class="panel" style="overflow-x:auto"><table>
-        <thead><tr><th>LTE / IMEI</th><th>Loco</th><th>SIM</th><th>IP Address</th><th>Network</th><th>Signal</th><th>Data Usage</th><th>Status</th><th>Last Comm</th></tr></thead>
+        <thead><tr><th>LTE / IMEI</th><th>LOCO</th><th>SIM</th><th>IP Address</th><th>Network</th><th>Signal</th><th>Data Usage</th><th>Status</th><th>Last Comm</th></tr></thead>
         <tbody id="lteRows"></tbody></table><div class="empty" id="lteEmpty" style="display:none">No LTE modules in your scope yet.</div></div>
     </section>
 
@@ -285,28 +285,28 @@
       <div class="view-head"><h2>Predictive Early-Warning</h2><span class="desc">Rate of temperature rise &amp; projected time-to-critical · soonest first</span></div>
       <div class="kpis" id="predStats" style="margin-bottom:18px"></div>
       <div class="panel"><table>
-        <thead><tr><th>TM</th><th>Loco</th><th>Shed</th><th>Temp</th><th>Rise Rate</th><th>Est. time to Critical</th><th>Risk</th></tr></thead>
+        <thead><tr><th>TM</th><th>LOCO</th><th>Shed</th><th>Temp</th><th>Rise Rate</th><th>Est. time to Critical</th><th>Risk</th></tr></thead>
         <tbody id="predRows"></tbody></table><div class="empty" id="predEmpty" style="display:none">Not enough data yet — projections need a few readings per sensor.</div></div>
 
       <div class="view-head" style="margin-top:22px"><h2 style="font-size:14px">Prognostics</h2><span class="desc">Thermal-degradation trend (statistical, from observed data)</span></div>
       <div class="panel"><table>
-        <thead><tr><th>TM</th><th>Loco</th><th>Baseline→Recent Avg</th><th>Peak</th><th>Thermal Trend</th><th>Verdict</th></tr></thead>
+        <thead><tr><th>TM</th><th>LOCO</th><th>Baseline→Recent Avg</th><th>Peak</th><th>Thermal Trend</th><th>Verdict</th></tr></thead>
         <tbody id="progRows"></tbody></table><div class="empty" id="progEmpty" style="display:none">Collecting data — prognostics need a running trend.</div></div>
 
       <div class="view-head" style="margin-top:22px"><h2 style="font-size:14px">Peer Anomalies</h2><span class="desc">A motor running much hotter than its sibling motors on the same loco — early warning before it crosses a threshold</span></div>
       <div class="panel"><table>
-        <thead><tr><th>TM</th><th>Loco</th><th>Temp</th><th>Peer Median</th><th>Deviation</th><th>Reason</th></tr></thead>
+        <thead><tr><th>TM</th><th>LOCO</th><th>Temp</th><th>Peer Median</th><th>Deviation</th><th>Reason</th></tr></thead>
         <tbody id="anomRows"></tbody></table><div class="empty" id="anomEmpty" style="display:none">No peer anomalies — motors on each loco are running consistently.</div></div>
     </section>
 
     <section class="view" id="view-transfer">
-      <div class="view-head"><h2>Loco Transfer</h2><span class="desc">Reassign a loco between SHEDS · the loco carries its 4 sensors, no hardware change</span></div>
+      <div class="view-head"><h2>LOCO Transfer</h2><span class="desc">Reassign a loco between SHEDS · the loco carries its 4 sensors, no hardware change</span></div>
       <div class="panel" style="margin-bottom:16px"><table>
-        <thead><tr><th>Loco</th><th>Current SHED</th><th>Position</th><th>Since</th><th>Action</th></tr></thead>
+        <thead><tr><th>LOCO</th><th>Current SHED</th><th>Position</th><th>Since</th><th>Action</th></tr></thead>
         <tbody id="locoRows"></tbody></table><div class="empty" id="locoEmpty" style="display:none">No locos yet.</div></div>
       <div class="view-head"><h2 style="font-size:15px">Transfer History</h2><span class="desc" id="histLabel">Select a loco to view its audit trail</span></div>
       <div class="panel"><table>
-        <thead><tr><th>Loco</th><th>From</th><th>To</th><th>By</th><th>Reason</th><th>At</th></tr></thead>
+        <thead><tr><th>LOCO</th><th>From</th><th>To</th><th>By</th><th>Reason</th><th>At</th></tr></thead>
         <tbody id="histRows"></tbody></table><div class="empty" id="histEmpty">No history loaded.</div></div>
     </section>
 
@@ -328,7 +328,7 @@
 
       <div class="view-head"><h2 style="font-size:14px">Users &amp; Roles</h2><button class="mini" id="addUserBtn" style="margin-left:auto">+ Add user</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Username</th><th>Role</th><th>Email</th><th>Mobile</th><th>Assigned Sheds</th><th>Assigned Locos</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Username</th><th>Role</th><th>Email</th><th>Mobile</th><th>Assigned Sheds</th><th>Assigned LOCOS</th><th>Actions</th></tr></thead>
         <tbody id="adminUsers"></tbody></table></div>
 
       <div class="view-head"><h2 style="font-size:14px">SHEDS</h2><button class="mini" id="addShedBtn" style="margin-left:auto">+ Add SHED</button></div>
@@ -338,20 +338,25 @@
 
       <div class="view-head"><h2 style="font-size:14px">Locomotives</h2><button class="mini" id="addLocoBtn" style="margin-left:auto">+ Add loco</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Loco</th><th>Shed</th><th>Arch</th><th>RUT200 IP</th><th>Port</th><th>Path</th><th>Poll</th><th>Actions</th></tr></thead>
+        <thead><tr><th>LOCO</th><th>Shed</th><th>Arch</th><th>RUT200 IP</th><th>Port</th><th>Path</th><th>Poll</th><th>Actions</th></tr></thead>
         <tbody id="adminLocos"></tbody></table></div>
 
       <div class="view-head"><h2 style="font-size:14px">Sensor Registry</h2><span class="desc">Serial no · calibration · firmware · warranty</span></div>
       <div class="panel"><table>
-        <thead><tr><th>Sensor</th><th>Loco</th><th>Serial No</th><th>Calibration</th><th>Firmware</th><th>Warranty</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Sensor</th><th>LOCO</th><th>Serial No</th><th>Calibration</th><th>Firmware</th><th>Warranty</th><th>Actions</th></tr></thead>
         <tbody id="adminSensors"></tbody></table><div class="empty" id="sensorEmpty" style="display:none">No sensors yet — push a reading first.</div></div>
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Depots</h2><button class="mini" id="addDepotBtn" style="margin-left:auto">+ Add depot</button></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Depot ID</th><th>Name</th><th>Region</th><th>Lat</th><th>Lng</th><th>Sheds</th><th>Locos</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Depot ID</th><th>Name</th><th>Region</th><th>Lat</th><th>Lng</th><th>Sheds</th><th>LOCOS</th><th>Actions</th></tr></thead>
         <tbody id="adminDepots"></tbody></table><div class="empty" id="depotEmpty" style="display:none">No depots yet.</div></div>
 
-      <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Bulk Loco Import</h2></div>
+      <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Field Devices (RUT self-update)</h2><button class="mini" id="addDeviceBtn" style="margin-left:auto">+ Register device</button></div>
+      <div class="panel" style="margin-bottom:18px"><div class="desc" style="padding:8px 4px">Each RUT pulls its config from here every few minutes — reassign a loco/shed or change register tags centrally, no site visit needed. 12 tags per device: TM1-DE, TM1-NDE … TM6-DE, TM6-NDE.</div><div style="overflow-x:auto"><table>
+        <thead><tr><th>Device ID</th><th>LOCO</th><th>Shed</th><th>TM1</th><th>TM2</th><th>TM3</th><th>TM4</th><th>TM5</th><th>TM6</th><th>Interval</th><th>Enabled</th><th>Last Seen</th><th>Actions</th></tr></thead>
+        <tbody id="adminDevices"></tbody></table></div><div class="empty" id="deviceEmpty" style="display:none">No field devices registered.</div></div>
+
+      <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Bulk LOCO Import</h2></div>
       <div class="panel" style="padding:16px;margin-bottom:18px">
         <div class="desc" style="margin-bottom:8px">One loco per line: <code>loco_id, shed_id</code> (shed_id optional). Example: <code>WAP7-30212, SHED-01</code></div>
         <textarea id="bulkText" class="inp" rows="4" style="width:100%;font-family:var(--mono);font-size:12px" placeholder="MC-05, SHED-01, 5&#10;MC-06, SHED-01, 6"></textarea>
@@ -361,7 +366,7 @@
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">System Status</h2><button class="mini" id="refreshStatus" style="margin-left:auto">Refresh</button></div>
       <div class="kpis" id="sysKpis" style="margin-bottom:14px"></div>
       <div class="panel"><table>
-        <thead><tr><th>Loco</th><th>Shed</th><th>Status</th><th>Sensors</th><th>Last Comm</th></tr></thead>
+        <thead><tr><th>LOCO</th><th>Shed</th><th>Status</th><th>Sensors</th><th>Last Comm</th></tr></thead>
         <tbody id="sysLocos"></tbody></table></div>
 
       <div class="view-head" style="margin-top:20px"><h2 style="font-size:14px">Backup &amp; Restore</h2><span class="desc">Master data (users, Sheds, locos, depots, devices, thresholds, config)</span></div>
@@ -458,13 +463,13 @@
     <section class="view" id="view-health">
       <div class="view-head"><h2>Health Index</h2><span class="desc">0–100 condition score · sensor → loco → shed → fleet</span></div>
       <div class="kpis" id="healthTop" style="margin-bottom:18px"></div>
-      <div class="view-head"><h2 style="font-size:14px">Loco Health (worst first)</h2></div>
+      <div class="view-head"><h2 style="font-size:14px">LOCO Health (worst first)</h2></div>
       <div class="panel" style="margin-bottom:18px"><table>
-        <thead><tr><th>Loco</th><th>Shed</th><th>Sensors</th><th>Avg Temp</th><th>Worst</th><th>Health Score</th></tr></thead>
+        <thead><tr><th>LOCO</th><th>Shed</th><th>Sensors</th><th>Avg Temp</th><th>Worst</th><th>Health Score</th></tr></thead>
         <tbody id="locoHealthRows"></tbody></table></div>
       <div class="view-head"><h2 style="font-size:14px">Shed Health</h2></div>
       <div class="panel"><table>
-        <thead><tr><th>Shed</th><th>Locos</th><th>Sensors</th><th>Avg Temp</th><th>Health Score</th></tr></thead>
+        <thead><tr><th>Shed</th><th>LOCOS</th><th>Sensors</th><th>Avg Temp</th><th>Health Score</th></tr></thead>
         <tbody id="shedHealthRows"></tbody></table></div>
     </section>
 
@@ -489,7 +494,7 @@
 
     <section class="view" id="view-topology">
       <div class="view-head"><h2>Network Topology</h2><span class="desc">Sensor → Data Concentrator → LTE Gateway → Cloud · per motor loco</span></div>
-      <div class="row"><div class="f"><label>Loco</label><select id="topoPick"></select></div></div>
+      <div class="row"><div class="f"><label>LOCO</label><select id="topoPick"></select></div></div>
       <div class="panel" style="padding:18px"><div id="topo"></div></div>
     </section>
 
@@ -500,7 +505,7 @@
         <button class="btn ghost" id="woExport">⬇ Export CSV</button>
         <div class="f"><label>Filter status</label><select id="woFilter"><option value="">All</option><option value="open">Open</option><option value="in_progress">In progress</option><option value="closed">Closed</option></select></div></div>
       <div class="panel"><table>
-        <thead><tr><th>#</th><th>Type</th><th>Loco</th><th>Title</th><th>Assigned</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+        <thead><tr><th>#</th><th>Type</th><th>LOCO</th><th>Title</th><th>Assigned</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
         <tbody id="woRows"></tbody></table><div class="empty" id="woEmpty" style="display:none">No maintenance records yet.</div></div>
     </section>
   </main>
@@ -520,7 +525,7 @@
   <div id="wallboard" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:60;padding:24px;overflow:auto">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
       <img src="/assets/himnish-logo.png" alt="Himnish" style="height:38px;width:auto"/>
-      <span style="font-weight:700;font-size:20px">HIMNISH Loco TM · Control Room</span>
+      <span style="font-weight:700;font-size:20px">HIMNISH LOCO TM · Control Room</span>
       <span class="live"><span class="dot"></span><span id="wallClock"></span></span>
       <span class="spacer" style="flex:1"></span>
       <span id="wallView" style="font-family:var(--mono);color:var(--muted);font-size:13px"></span>
@@ -592,24 +597,24 @@
   var I18N={
     'Overview':'ओवरव्यू','Live SHED':'लाइव SHED','Digital Twin':'डिजिटल ट्विन','Heatmap':'हीटमैप','Map':'नक्शा',
     'Devices':'डिवाइस','Topology':'टोपोलॉजी','Alerts':'अलर्ट','Analytics':'एनालिटिक्स','Predict':'पूर्वानुमान',
-    'Loco Transfer':'कोच स्वैप','Maintenance':'रखरखाव','Admin':'एडमिन','Notify':'सूचना','Reports':'रिपोर्ट',
+    'LOCO Transfer':'कोच स्वैप','Maintenance':'रखरखाव','Admin':'एडमिन','Notify':'सूचना','Reports':'रिपोर्ट',
     'Health':'हेल्थ','Assistant':'सहायक','Audit':'ऑडिट','Sign out':'साइन आउट',
-    'Enterprise Overview':'फ्लीट ओवरव्यू','Live Loco Status':'लाइव लोको स्थिति',
+    'Enterprise Overview':'फ्लीट ओवरव्यू','Live LOCO Status':'लाइव लोको स्थिति',
     'Temperature Heatmap':'तापमान हीटमैप','Depot Map':'डिपो नक्शा','Network Topology':'नेटवर्क टोपोलॉजी',
     'Alert Management Center':'अलर्ट प्रबंधन केंद्र','Historical Analytics':'ऐतिहासिक एनालिटिक्स',
-    'Predictive Early-Warning':'पूर्वानुमान चेतावनी','Loco Transfer':'कोच स्वैप','Health Index':'हेल्थ इंडेक्स',
+    'Predictive Early-Warning':'पूर्वानुमान चेतावनी','LOCO Transfer':'कोच स्वैप','Health Index':'हेल्थ इंडेक्स',
     'Fleet Assistant':'फ्लीट सहायक','Audit Trail':'ऑडिट ट्रेल','Data Concentrators & LTE':'डेटा कंसंट्रेटर और LTE',
     'Prognostics':'प्रोग्नोस्टिक्स','Peer Anomalies':'पीयर विसंगतियाँ','Reports':'रिपोर्ट',
     'Maintenance Management':'रखरखाव प्रबंधन','Users & Roles':'यूज़र और रोल','Sheds':'Shed','Locomotives':'मोटर कोच',
     'Depots':'डिपो','Field Devices (RUT self-update)':'फील्ड डिवाइस','System Status':'सिस्टम स्थिति','Backup & Restore':'बैकअप और रीस्टोर',
     // common table columns
-    'Loco':'कोच','Shed':'Shed','Temp':'तापमान','Status':'स्थिति','Actions':'कार्य','Severity':'गंभीरता','Asset':'एसेट',
+    'LOCO':'कोच','Shed':'Shed','Temp':'तापमान','Status':'स्थिति','Actions':'कार्य','Severity':'गंभीरता','Asset':'एसेट',
     'Detail':'विवरण','State':'स्थिति','Time':'समय','User':'यूज़र','Action':'कार्रवाई','Role':'रोल','Battery %':'बैटरी %',
-    'Sensors':'सेंसर','Avg Temp':'औसत तापमान','Worst':'सबसे खराब','Health Score':'हेल्थ स्कोर','Locos':'कोच',
+    'Sensors':'सेंसर','Avg Temp':'औसत तापमान','Worst':'सबसे खराब','Health Score':'हेल्थ स्कोर','LOCOS':'कोच',
     'Position':'पोज़िशन','Reason':'कारण','Risk':'जोखिम','Verdict':'निर्णय','Enabled':'सक्रिय','Last Seen':'अंतिम बार',
     'Username':'यूज़रनेम','Email':'ईमेल','Mobile':'मोबाइल','Name':'नाम','Depot':'डिपो','Device ID':'डिवाइस ID',
     'Interval':'अंतराल','Battery':'बैटरी','Peak':'शिखर','Deviation':'विचलन','Peer Median':'पीयर मध्यमान',
-    'Rise Rate':'वृद्धि दर','Assigned SHEDS':'सौंपे गए SHED','Assigned Locos':'सौंपे गए कोच'
+    'Rise Rate':'वृद्धि दर','Assigned SHEDS':'सौंपे गए SHED','Assigned LOCOS':'सौंपे गए कोच'
   };
   function applyLang(){
     var hi=LANG==='hi';
@@ -935,7 +940,7 @@
   }
   async function woCall(path,method,body){try{await api(path,{method:method,body:body?JSON.stringify(body):undefined});renderMaint();}catch(e){alert(e.message);}}
   function addWo(){
-    var loco=prompt('Loco id (one you can access):','');if(!loco)return;
+    var loco=prompt('LOCO id (one you can access):','');if(!loco)return;
     var type=prompt('Type: work_order / preventive / corrective / calibration / sensor_replacement / battery_replacement','work_order');
     var title=prompt('Title / description:','');if(!title)return;
     var assigned=prompt('Assigned to (optional):','');
@@ -955,7 +960,7 @@
     var totalLocos=data.reduce(function(a,d){return a+d.locos.length;},0);
     var offline=data.reduce(function(a,d){return a+d.locos.filter(function(c){return c.status==='offline'||c.status==='no-data';}).length;},0);
     var k=$('#mapKpis');k.innerHTML='';
-    [['Depots',data.length,'accent'],['On Map',withGeo.length,''],['Locos',totalLocos,''],['Offline/No-data',offline,offline?'crit':'ok']].forEach(function(c){
+    [['Depots',data.length,'accent'],['On Map',withGeo.length,''],['LOCOS',totalLocos,''],['Offline/No-data',offline,offline?'crit':'ok']].forEach(function(c){
       var d=el('div','kpi '+(c[2]||''));d.appendChild(el('div','label',c[0]));d.appendChild(el('div','val',c[1]));k.appendChild(d);});
     if(!window.L){$('#mapNote').textContent='Map library still loading — check your internet connection and retry.';return;}
     if(!MAP){
@@ -1040,14 +1045,14 @@
       if(mode==='overview'){
         var k=await api('/overview');body.innerHTML='';
         var g=el('div');g.style.cssText='display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px';
-        [['Sheds',k.total_sheds,'accent'],['Locos',k.total_locos,''],['Sensors Online',k.online_sensors,'ok'],['Offline',k.offline_sensors,k.offline_sensors?'crit':''],['Warning TMs',k.warning_tms,k.warning_tms?'warn':''],['Critical TMs',k.critical_tms,k.critical_tms?'crit':''],['Active Alerts',k.active_alerts,k.active_alerts?'crit':''],['Avg Temp',k.avg_fleet_temp==null?'—':k.avg_fleet_temp+'°C','accent']].forEach(function(c){
+        [['Sheds',k.total_sheds,'accent'],['LOCOS',k.total_locos,''],['Sensors Online',k.online_sensors,'ok'],['Offline',k.offline_sensors,k.offline_sensors?'crit':''],['Warning TMs',k.warning_tms,k.warning_tms?'warn':''],['Critical TMs',k.critical_tms,k.critical_tms?'crit':''],['Active Alerts',k.active_alerts,k.active_alerts?'crit':''],['Avg Temp',k.avg_fleet_temp==null?'—':k.avg_fleet_temp+'°C','accent']].forEach(function(c){
           var d=el('div','kpi '+(c[2]||''));d.style.padding='26px';d.appendChild(el('div','label',c[0]));var v=el('div','val',c[1]);v.style.fontSize='46px';d.appendChild(v);g.appendChild(d);});
         body.appendChild(g);
       } else if(mode==='critical'){
         var a=await api('/alerts?state=active');body.innerHTML='';
         var h=el('div',null,'Active Alerts ('+a.length+')');h.style.cssText='font-size:20px;font-weight:600;margin-bottom:14px';body.appendChild(h);
         if(!a.length){var ok=el('div','empty','✓ All clear — no active alerts');ok.style.fontSize='18px';body.appendChild(ok);}
-        else{var p=el('div','panel');var t=el('table');t.innerHTML='<thead><tr><th>Severity</th><th>Shed</th><th>Loco</th><th>Detail</th><th>Time</th></tr></thead>';var tbb=el('tbody');
+        else{var p=el('div','panel');var t=el('table');t.innerHTML='<thead><tr><th>Severity</th><th>Shed</th><th>LOCO</th><th>Detail</th><th>Time</th></tr></thead>';var tbb=el('tbody');
           a.slice(0,12).forEach(function(x){var tr=el('tr');var s=el('td');s.appendChild(el('span','sev '+x.severity,x.severity));tr.appendChild(s);
             [x.shed_id||'—',x.loco_id||'—',x.message,new Date(x.at).toLocaleTimeString('en-GB')].forEach(function(v){tr.appendChild(el('td',null,v));});tbb.appendChild(tr);});
           t.appendChild(tbb);p.appendChild(t);body.appendChild(p);}
@@ -1147,6 +1152,7 @@
     $('#rpSave').addEventListener('click',saveReportSchedule);
     $('#rpSend').addEventListener('click',sendReportNow);
     $('#addDepotBtn').addEventListener('click',function(){editDepot(null);});
+    $('#addDeviceBtn').addEventListener('click',function(){editDevice(null);});
     $('#backupBtn').addEventListener('click',function(){download('/backup','raip_backup.json').catch(function(e){alert(e.message);});});
     $('#restoreBtn').addEventListener('click',function(){$('#restoreFile').click();});
     $('#restoreFile').addEventListener('change',doRestore);
@@ -1158,7 +1164,7 @@
   async function renderAdmin(){
     var ro=!isAdmin();
     $('#adminScopeNote').textContent=ro?'Read-only view — editing requires Super Admin':'Super Admin · full master-data control';
-    ['addUserBtn','addShedBtn','addLocoBtn','thSave','addDepotBtn','bulkBtn'].forEach(function(id){$('#'+id).style.display=ro?'none':'';});
+    ['addUserBtn','addShedBtn','addLocoBtn','thSave','addDepotBtn','bulkBtn','addDeviceBtn'].forEach(function(id){$('#'+id).style.display=ro?'none':'';});
     // thresholds
     var th=await api('/thresholds');
     $('#thWarn').value=th.CFG_WARN_TEMP;$('#thHigh').value=th.CFG_HIGH_TEMP;$('#thCrit').value=th.CFG_CRIT_TEMP;
@@ -1212,7 +1218,36 @@
       var ac=el('td');if(!ro){ac.appendChild(mkBtn('Edit',function(){editDepot(dp);}));ac.appendChild(mkBtn('Delete',function(){if(confirm('Delete depot '+dp.depot_id+'?'))adminCall('/depots/'+dp.depot_id,'DELETE');}));}else ac.textContent='—';
       tr.appendChild(ac);td.appendChild(tr);
     });
+    // field devices — 12 Modbus tags per device: TM1-6 x DE/NDE
+    var devs=await api('/devices-registry');var tdv=$('#adminDevices');tdv.innerHTML='';
+    $('#deviceEmpty').style.display=devs.length?'none':'block';
+    devs.forEach(function(dv){
+      var tr=el('tr');
+      tr.appendChild(el('td',null,dv.device_id));tr.appendChild(el('td',null,dv.loco_id||'—'));tr.appendChild(el('td',null,dv.shed_id||'—'));
+      for(var n=1;n<=6;n++){
+        var de=dv['tag'+(n*2-1)]||'—',nde=dv['tag'+(n*2)]||'—';
+        tr.appendChild(el('td',null,de+' / '+nde));
+      }
+      tr.appendChild(el('td',null,(dv.post_interval||10)+'s'));tr.appendChild(el('td',null,dv.enabled===false?'No':'Yes'));tr.appendChild(el('td',null,dv.last_seen?ago(dv.last_seen):'never'));
+      var ac=el('td');
+      if(!ro){ac.appendChild(mkBtn('Edit',function(){editDevice(dv);}));ac.appendChild(mkBtn('Delete',function(){if(confirm('Delete device '+dv.device_id+'?'))adminCall('/devices-registry/'+dv.device_id,'DELETE');}));}else ac.textContent='—';
+      tr.appendChild(ac);tdv.appendChild(tr);
+    });
     renderSysStatus();
+  }
+  function editDevice(dv){
+    var id=dv?dv.device_id:prompt('Device ID (must match DEVICE_ID in the RUT script, e.g. DEV-01):','');if(!id)return;
+    var loco=prompt('Assign to LOCO id (must match coachId in the RUT script, e.g. WAP7-30211):',dv?(dv.loco_id||''):'');if(loco===null)return;
+    var shed=prompt('Shed id (e.g. SHED-01):',dv?(dv.shed_id||''):'');
+    var defTags=['1584','1586','1588','1590','1592','1594','1596','1598','1600','1602','1604','1606'];
+    var curTags=dv?[1,2,3,4,5,6,7,8,9,10,11,12].map(function(i){return dv['tag'+i]||defTags[i-1];}):defTags;
+    var tags=prompt('Modbus register tags — 12 values, TM1-DE,TM1-NDE,TM2-DE,TM2-NDE...TM6-DE,TM6-NDE (comma separated):',curTags.join(','));
+    var iv=prompt('Post interval seconds:',dv?(dv.post_interval||10):'10');
+    var en=confirm('Enabled? OK = enabled, Cancel = disabled');
+    var t=(tags||defTags.join(',')).split(',').map(function(x){return x.trim();});
+    var body={device_id:id,loco_id:loco,shed_id:shed,post_interval:+iv||10,enabled:en};
+    for(var i=0;i<12;i++)body['tag'+(i+1)]=t[i]||defTags[i];
+    adminCall('/devices-registry'+(dv?'/'+dv.device_id:''),dv?'PUT':'POST',body);
   }
   async function renderSysStatus(){
     try{var st=await api('/system-status');var k=$('#sysKpis');k.innerHTML='';
@@ -1426,13 +1461,13 @@
     catch(e){$('#rpNote').textContent='Error: '+e.message;}
   }
 
-  var REPORT_TYPES=[['readings','Live Readings'],['alarms','Alarm Report'],['sensor-health','Sensor Health'],['loco-health','Loco Health'],['shed-health','Shed Health']];
+  var REPORT_TYPES=[['readings','Live Readings'],['alarms','Alarm Report'],['sensor-health','Sensor Health'],['loco-health','LOCO Health'],['shed-health','Shed Health']];
   function scoreClass(v){return v>=80?'ok':v>=55?'warn':'crit';}
   async function renderReports(){
     $('#reportNote').textContent='Exports use your live session and cover only your assigned locos.';
     var hi=await api('/health-index');
     var top=$('#reportHealth');top.innerHTML='';
-    [['Fleet Health',hi.fleet,scoreClass(hi.fleet),''],['Sheds',hi.sheds.length,'',''],['Locos',hi.locos.length,'',''],['Sensors',hi.sensors.length,'','']].forEach(function(c){
+    [['Fleet Health',hi.fleet,scoreClass(hi.fleet),''],['Sheds',hi.sheds.length,'',''],['LOCOS',hi.locos.length,'',''],['Sensors',hi.sensors.length,'','']].forEach(function(c){
       var d=el('div','kpi '+(c[2]||''));d.appendChild(el('div','label',c[0]));var v=el('div','val'+(c[3]?' unit':''),c[1]);if(c[3])v.dataset.unit=c[3];d.appendChild(v);top.appendChild(d);});
     var tb=$('#reportRows');tb.innerHTML='';
     REPORT_TYPES.forEach(function(rt){
@@ -1510,24 +1545,24 @@
           '<span class="desc">Note: rule-based assistant over your own data — not an external AI service.</span>';
       } else if(q.indexOf('summary')>=0||q.indexOf('overview')>=0){
         var ov=await api('/overview');
-        ans='<b>Fleet summary</b><br><br>Sheds: '+ov.total_sheds+' · Locos: '+ov.total_locos+' · TMs: '+ov.total_tms+
+        ans='<b>Fleet summary</b><br><br>Sheds: '+ov.total_sheds+' · LOCOS: '+ov.total_locos+' · TMs: '+ov.total_tms+
           '<br>Online: '+ov.online_sensors+' · Offline: '+ov.offline_sensors+
           '<br>Warning: '+ov.warning_tms+' · Critical: '+ov.critical_tms+
           '<br>Active alerts: '+ov.active_alerts+' · Avg fleet temp: '+(ov.avg_fleet_temp==null?'—':ov.avg_fleet_temp+'°C');
       } else if(q.indexOf('critical')>=0){
-        ans='<b>Critical TMs</b><br>'+list(online.filter(function(t){return t.cls==='critical';}),[['TM','tm'],['Loco','loco'],['Temp °C','temp']]);
+        ans='<b>Critical TMs</b><br>'+list(online.filter(function(t){return t.cls==='critical';}),[['TM','tm'],['LOCO','loco'],['Temp °C','temp']]);
       } else if(q.indexOf('high')>=0){
-        ans='<b>High TMs</b><br>'+list(online.filter(function(t){return t.cls==='high';}),[['TM','tm'],['Loco','loco'],['Temp °C','temp']]);
+        ans='<b>High TMs</b><br>'+list(online.filter(function(t){return t.cls==='high';}),[['TM','tm'],['LOCO','loco'],['Temp °C','temp']]);
       } else if(q.indexOf('warning')>=0){
-        ans='<b>Warning TMs</b><br>'+list(online.filter(function(t){return t.cls==='warning';}),[['TM','tm'],['Loco','loco'],['Temp °C','temp']]);
+        ans='<b>Warning TMs</b><br>'+list(online.filter(function(t){return t.cls==='warning';}),[['TM','tm'],['LOCO','loco'],['Temp °C','temp']]);
       } else if(q.indexOf('offline')>=0){
-        ans='<b>Offline TMs</b><br>'+list(tms.filter(function(t){return t.status==='offline';}),[['TM','tm'],['Loco','loco'],['Shed','shed']]);
+        ans='<b>Offline TMs</b><br>'+list(tms.filter(function(t){return t.status==='offline';}),[['TM','tm'],['LOCO','loco'],['Shed','shed']]);
       } else if(q.indexOf('hot')>=0||q.indexOf('highest')>=0||q.indexOf('max')>=0){
         var s=online.slice().sort(function(a,b){return (b.temp||0)-(a.temp||0);}).slice(0,5);
-        ans='<b>Hottest TMs</b><br>'+list(s,[['TM','tm'],['Loco','loco'],['Temp °C','temp'],['Level','cls']]);
+        ans='<b>Hottest TMs</b><br>'+list(s,[['TM','tm'],['LOCO','loco'],['Temp °C','temp'],['Level','cls']]);
       } else if(q.indexOf('cool')>=0||q.indexOf('lowest temp')>=0){
         var sc=online.slice().sort(function(a,b){return (a.temp||0)-(b.temp||0);}).slice(0,5);
-        ans='<b>Coolest TMs</b><br>'+list(sc,[['TM','tm'],['Loco','loco'],['Temp °C','temp']]);
+        ans='<b>Coolest TMs</b><br>'+list(sc,[['TM','tm'],['LOCO','loco'],['Temp °C','temp']]);
       } else if(q.indexOf('alert')>=0){
         var al=await api('/alerts?state=active');
         ans='<b>Active alerts: '+al.length+'</b><br>'+list(al.slice(0,20).map(function(a){return {sev:a.severity,asset:a.loco_id||a.sensor_id,detail:a.message};}),[['Severity','sev'],['Asset','asset'],['Detail','detail']]);
@@ -1542,9 +1577,9 @@
     var hi=await api('/health-index');
     var top=$('#healthTop');top.innerHTML='';
     var worstLoco=hi.locos[0];
-    [['Fleet Health',hi.fleet,scoreClass(hi.fleet),''],['Healthy Locos',hi.locos.filter(function(c){return c.score>=80;}).length,'ok',''],
-     ['At-Risk Locos',hi.locos.filter(function(c){return c.score<55;}).length,hi.locos.filter(function(c){return c.score<55;}).length?'crit':'',''],
-     ['Lowest Loco',worstLoco?worstLoco.score:100,worstLoco?scoreClass(worstLoco.score):'ok','']].forEach(function(c){
+    [['Fleet Health',hi.fleet,scoreClass(hi.fleet),''],['Healthy LOCOS',hi.locos.filter(function(c){return c.score>=80;}).length,'ok',''],
+     ['At-Risk LOCOS',hi.locos.filter(function(c){return c.score<55;}).length,hi.locos.filter(function(c){return c.score<55;}).length?'crit':'',''],
+     ['Lowest LOCO',worstLoco?worstLoco.score:100,worstLoco?scoreClass(worstLoco.score):'ok','']].forEach(function(c){
       var d=el('div','kpi '+(c[2]||''));d.appendChild(el('div','label',c[0]));d.appendChild(el('div','val',c[1]));top.appendChild(d);});
     var tc=$('#locoHealthRows');tc.innerHTML='';
     hi.locos.forEach(function(c){

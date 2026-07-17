@@ -12,24 +12,23 @@ const TYPES = {
   readings: 'Live Readings Report',
   alarms: 'Alarm Report',
   'sensor-health': 'Sensor Health Report',
-  'loco-health': 'Loco Health Report',
-  'shed-health': 'SHED Health Report',
+  'loco-health': 'LOCO Health Report',
+  'shed-health': 'Shed Health Report',
 };
 
 function rowsFor(type, store, sensors, scope) {
   const cls = (s) => store.classify(s.status === 'offline' ? null : s.temperature);
   if (type === 'readings') {
     return {
-      head: ['Sensor', 'TM', 'Loco', 'Shed', 'Temp (C)', 'Status', 'Class', 'Battery %', 'Signal %', 'Last Update'],
+      head: ['Sensor', 'TM', 'LOCO', 'Shed', 'Temp (C)', 'Status', 'Class', 'Last Update'],
       body: sensors.map((s) => [s.sensor_id, s.tm_id || '', s.loco_id || '', s.shed_id || '',
-        s.temperature == null ? '' : s.temperature, s.status, cls(s),
-        s.battery_health == null ? '' : s.battery_health, s.signal_strength == null ? '' : s.signal_strength, s.last_update]),
+        s.temperature == null ? '' : s.temperature, s.status, cls(s), s.last_update]),
     };
   }
   if (type === 'alarms') {
     let alerts = store.alerts.filter((a) => scope.all || (a.loco_id && scope.locos.has(a.loco_id)));
     return {
-      head: ['#', 'Severity', 'Shed', 'Loco', 'TM', 'Message', 'Raised', 'State', 'Acknowledged By'],
+      head: ['#', 'Severity', 'Shed', 'LOCO', 'TM', 'Message', 'Raised', 'State', 'Acknowledged By'],
       body: alerts.slice(0, 1000).map((a) => [a.id, a.severity, a.shed_id || '', a.loco_id || '',
         a.tm_id || '', a.message, a.at, a.state, a.acknowledged_by || '']),
     };
@@ -37,14 +36,14 @@ function rowsFor(type, store, sensors, scope) {
   if (type === 'sensor-health') {
     const hi = healthIndex(store, sensors, scope);
     return {
-      head: ['Sensor', 'Loco', 'Shed', 'Temp (C)', 'Battery %', 'Status', 'Health Score'],
+      head: ['Sensor', 'LOCO', 'Shed', 'Temp (C)', 'Status', 'Health Score'],
       body: hi.sensors.map((s) => [s.sensor_id, s.loco_id || '', s.shed_id || '', s.temperature == null ? '' : s.temperature,
-        s.battery_health == null ? '' : s.battery_health, s.status, s.score]),
+        s.status, s.score]),
     };
   }
   if (type === 'loco-health') {
     const hi = healthIndex(store, sensors, scope);
-    return { head: ['Loco', 'Shed', 'Sensors', 'Avg Temp (C)', 'Worst Class', 'Health Score'],
+    return { head: ['LOCO', 'Shed', 'Sensors', 'Avg Temp (C)', 'Worst Class', 'Health Score'],
       body: hi.locos.map((c) => [c.loco_id, c.shed_id || '', c.count, c.avg_temp == null ? '' : c.avg_temp, c.worst, c.score]) };
   }
   if (type === 'shed-health') {
